@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="diagram.bpmn" />
+    <None Include="diagram.svg" />
     <Compile Include="Parser.fs" />
   </ItemGroup>
 

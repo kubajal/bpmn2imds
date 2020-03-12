@@ -16,7 +16,7 @@ type BPMNElement =
     | EndEvent of id : string * parentId: string
     | SequenceFlow of source : string * target: string * id: string * parentId: string
     | MessageFlow of source : string * target: string * id: string * parentId: string
-    
+    | BoundaryFlow of source : string * target: string * id: string * parentId: string
     
 type Point = Point of x: int * y: int
 
@@ -31,12 +31,13 @@ module bpmn2imds =
     let End     = Point
     
     let parse (model: BPMN.Model) = 
-        // let model = BPMN.Model.Read("test.bpmn")
+        // let model = BPMN.Model.Read("diagram.bpmn")
         
         let planes = 
             model.Diagrams 
             |> Seq.collect(fun e -> e.Planes)
             
+        let lastN N (xs: string) = xs.[(xs.Length - N)..]
         let isNull x = match x with null -> true | _ -> false
         let isNotNull x = isNull x |> not
         
@@ -51,19 +52,23 @@ module bpmn2imds =
                 then (e.ElementRef, Seq.head e.Points, Seq.last e.Points) |> Some
                 else None)
             |> Seq.map(fun e -> 
-                match e with
-                | Some (elementRef, s, e) -> Edge (elementRef, Start (s.X, s.Y), End (s.X, s.Y)) |> Some
-                | _ -> None)
+                e |> Option.map(fun (elementRef, s, e) -> Edge (elementRef, Start (s.X, s.Y), End (s.X, s.Y))))
         // edges |> printSeq
         
         let shapes = 
             planes 
             |> Seq.collect(fun e -> e.Shapes)
-            |> Seq.map(fun e -> (e.ElementRef, e.Bounds))
-            |> Seq.map(fun (elementRef, bounds) -> (elementRef, Seq.head bounds))
-            |> Seq.map(fun (elementRef, rectangle) -> (elementRef, rectangle.Left + rectangle.Width/2, rectangle.Top + rectangle.Height/2))
-            |> Seq.map(fun (elementRef, X, Y) -> Shape (elementRef, Middle (X, Y)))
-        shapes
+            |> Seq.map(fun e -> 
+                if isNotNull e.ElementRef && isNotNull e.Bounds && e.Bounds.Count = 1
+                then (e.ElementRef, Seq.head e.Bounds) |> Some
+                else None)
+            |> Seq.map(fun e -> 
+                e |> Option.map(fun (elementRef, rectangle) -> 
+                    elementRef, rectangle.Left + rectangle.Width/2, rectangle.Top + rectangle.Height/2))
+            |> Seq.map(fun e -> 
+                e |> Option.map(fun (elementRef, X, Y) -> 
+                    Shape (elementRef, Middle (X, Y))))
+        // shapes |> printSeq
 
         let elements = model.Elements |> Seq.map(fun e -> 
             match e.TypeName with
@@ -76,6 +81,13 @@ module bpmn2imds =
             | "sequenceFlow" -> SequenceFlow (e.Attributes.["sourceRef"], e.Attributes.["targetRef"], e.ID, e.ParentID) |> Some
             | "messageFlow" -> MessageFlow (e.Attributes.["sourceRef"], e.Attributes.["targetRef"], e.ID, e.ParentID) |> Some
             | _ -> None)
+        let flows = model.Elements |> Seq.map(fun e -> 
+            match e.TypeName with
+            | "sequenceFlow" -> SequenceFlow (e.Attributes.["sourceRef"], e.Attributes.["targetRef"], e.ID, e.ParentID) |> Some
+            | "messageFlow" -> MessageFlow (e.Attributes.["sourceRef"], e.Attributes.["targetRef"], e.ID, e.ParentID) |> Some
+            | "boundaryEvent" -> BoundaryFlow (e.Attributes.["attachedToRef"],  e.ID, (lastN 7 e.Attributes.["attachedToRef"]) + (lastN <| 7 <| e.ID), e.ParentID) |> Some
+            | _ -> None)
+        flows |> printSeq
             
         let printSeq seq1 = Seq.iter (printf "%A\n") seq1; printfn ""
         elements |> printSeq
