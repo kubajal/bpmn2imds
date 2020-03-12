@@ -5,8 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Library.fs" />
     <Compile Include="Parser.fs" />
+  </ItemGroup>
+
+  <ItemGroup />
+
+  <ItemGroup>
+    <PackageReference Include="BPMN.Sharp" Version="1.0.7" />
   </ItemGroup>
 
 </Project>
