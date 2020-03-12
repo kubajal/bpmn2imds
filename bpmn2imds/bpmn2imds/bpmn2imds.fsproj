@@ -10,10 +10,9 @@
     <Compile Include="Parser.fs" />
   </ItemGroup>
 
-  <ItemGroup />
-
   <ItemGroup>
     <PackageReference Include="BPMN.Sharp" Version="1.0.7" />
+    <PackageReference Include="QuickGraph" Version="3.6.61119.7" />
   </ItemGroup>
 
 </Project>

@@ -25,72 +25,63 @@ type BPMNShape =
     | Shape of elementRef: string * m: Point
     | Edge of elementRef: string * s: Point * e: Point
     
-module bpmn2imds =
+module parser =
     let Middle  = Point
     let Start   = Point
     let End     = Point
     
-    let parse (model: BPMN.Model) = 
-        // let model = BPMN.Model.Read("diagram.bpmn")
-        
-        let planes = 
-            model.Diagrams 
-            |> Seq.collect(fun e -> e.Planes)
-            
-        let lastN N (xs: string) = xs.[(xs.Length - N)..]
-        let isNull x = match x with null -> true | _ -> false
-        let isNotNull x = isNull x |> not
-        
-        // we are interested not in the ID of the edge (which is of form "<...>_di"
-        // but in the <...> part which is saved in e.ElementRef which is the id of the BPMN element
-        // that is represented by drawing of the edge
-        let edges = 
-            planes 
-            |> Seq.collect(fun e -> e.Edges)
-            |> Seq.map(fun e -> 
-                if isNotNull e.ElementRef && isNotNull e.Points && e.Points.Count > 2
-                then (e.ElementRef, Seq.head e.Points, Seq.last e.Points) |> Some
-                else None)
-            |> Seq.map(fun e -> 
-                e |> Option.map(fun (elementRef, s, e) -> Edge (elementRef, Start (s.X, s.Y), End (s.X, s.Y))))
-        // edges |> printSeq
-        
-        let shapes = 
-            planes 
-            |> Seq.collect(fun e -> e.Shapes)
-            |> Seq.map(fun e -> 
-                if isNotNull e.ElementRef && isNotNull e.Bounds && e.Bounds.Count = 1
-                then (e.ElementRef, Seq.head e.Bounds) |> Some
-                else None)
-            |> Seq.map(fun e -> 
-                e |> Option.map(fun (elementRef, rectangle) -> 
-                    elementRef, rectangle.Left + rectangle.Width/2, rectangle.Top + rectangle.Height/2))
-            |> Seq.map(fun e -> 
-                e |> Option.map(fun (elementRef, X, Y) -> 
-                    Shape (elementRef, Middle (X, Y))))
-        // shapes |> printSeq
+    let lastN N (xs: string) = xs.[(max (xs.Length - N) 0)..]
+    let isNull x = match x with null -> true | _ -> false
+    let isNotNull x = isNull x |> not
 
-        let elements = model.Elements |> Seq.map(fun e -> 
-            match e.TypeName with
-            | "process" -> Process (e.ID) |> Some
-            | "exclusiveGateway" -> ExclusiveGateway (e.ID, e.ParentID) |> Some
-            | "parallelGateway" -> ParallelGateway (e.ID, e.ParentID) |> Some
-            | "task" -> Task (e.ID, e.ParentID) |> Some
-            | "startEvent" -> StartEvent (e.ID, e.ParentID) |> Some
-            | "endEvent" -> EndEvent (e.ID, e.ParentID) |> Some
-            | "sequenceFlow" -> SequenceFlow (e.Attributes.["sourceRef"], e.Attributes.["targetRef"], e.ID, e.ParentID) |> Some
-            | "messageFlow" -> MessageFlow (e.Attributes.["sourceRef"], e.Attributes.["targetRef"], e.ID, e.ParentID) |> Some
-            | _ -> None)
-        let flows = model.Elements |> Seq.map(fun e -> 
-            match e.TypeName with
-            | "sequenceFlow" -> SequenceFlow (e.Attributes.["sourceRef"], e.Attributes.["targetRef"], e.ID, e.ParentID) |> Some
-            | "messageFlow" -> MessageFlow (e.Attributes.["sourceRef"], e.Attributes.["targetRef"], e.ID, e.ParentID) |> Some
-            | "boundaryEvent" -> BoundaryFlow (e.Attributes.["attachedToRef"],  e.ID, (lastN 7 e.Attributes.["attachedToRef"]) + (lastN <| 7 <| e.ID), e.ParentID) |> Some
-            | _ -> None)
-        flows |> printSeq
-            
-        let printSeq seq1 = Seq.iter (printf "%A\n") seq1; printfn ""
-        elements |> printSeq
+    // we are interested not in the ID of the edge (which is of form "<...>_di"
+    // but in the <...> part which is saved in e.ElementRef which is the id of the BPMN element
+    // that is represented by drawing of the edge
+    let getEdges (model: BPMN.Model) = 
+        model.Diagrams 
+        |> Seq.collect(fun e -> e.Planes)
+        |> Seq.collect(fun e -> e.Edges)
+        |> Seq.map(fun e -> 
+            if isNotNull e.ElementRef && isNotNull e.Points && e.Points.Count > 2
+            then (e.ElementRef, Seq.head e.Points, Seq.last e.Points) |> Some
+            else None)
+        |> Seq.map(fun e -> 
+            e |> Option.map(fun (elementRef, s, e) -> Edge (elementRef, Start (s.X, s.Y), End (s.X, s.Y))))
+    // edges |> printSeq
+    
+    let getShapes (model: BPMN.Model) = 
+        model.Diagrams 
+        |> Seq.collect(fun e -> e.Planes)
+        |> Seq.collect(fun e -> e.Shapes)
+        |> Seq.map(fun e -> 
+            if isNotNull e.ElementRef && isNotNull e.Bounds && e.Bounds.Count = 1
+            then (e.ElementRef, Seq.head e.Bounds) |> Some
+            else None)
+        |> Seq.map(fun e -> 
+            e |> Option.map(fun (elementRef, rectangle) -> 
+                elementRef, rectangle.Left + rectangle.Width/2, rectangle.Top + rectangle.Height/2))
+        |> Seq.map(fun e -> 
+            e |> Option.map(fun (elementRef, X, Y) -> 
+                Shape (elementRef, Middle (X, Y))))
+
+    let getElements (model: BPMN.Model) = model.Elements |> Seq.map(fun e -> 
+        match e.TypeName with
+        | "process" -> Process (e.ID) |> Some
+        | "exclusiveGateway" -> ExclusiveGateway (e.ID, e.ParentID) |> Some
+        | "parallelGateway" -> ParallelGateway (e.ID, e.ParentID) |> Some
+        | "task" -> Task (e.ID, e.ParentID) |> Some
+        | "startEvent" -> StartEvent (e.ID, e.ParentID) |> Some
+        | "endEvent" -> EndEvent (e.ID, e.ParentID) |> Some
+        | "sequenceFlow" -> SequenceFlow (e.Attributes.["sourceRef"], e.Attributes.["targetRef"], e.ID, e.ParentID) |> Some
+        | "messageFlow" -> MessageFlow (e.Attributes.["sourceRef"], e.Attributes.["targetRef"], e.ID, e.ParentID) |> Some
+        | _ -> None)
+
+    let getFlows (model: BPMN.Model) = model.Elements |> Seq.map(fun e -> 
+        match e.TypeName with
+        | "sequenceFlow" -> SequenceFlow (e.Attributes.["sourceRef"], e.Attributes.["targetRef"], e.ID, e.ParentID) |> Some
+        | "messageFlow" -> MessageFlow (e.Attributes.["sourceRef"], e.Attributes.["targetRef"], e.ID, e.ParentID) |> Some
+        | "boundaryEvent" -> BoundaryFlow (e.Attributes.["attachedToRef"],  e.ID, (lastN 7 e.Attributes.["attachedToRef"]) + (lastN <| 7 <| e.ID), e.ParentID) |> Some
+        | _ -> None)
 
 (*    elif (e.TypeName == "task") then Task e.ID
     elif (e.TypeName == "startEvent") then StartEvent e.ID
