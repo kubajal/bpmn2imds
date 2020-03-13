@@ -14,6 +14,7 @@ type BPMNElement =
     | Task of id : string * parentId: string
     | StartEvent of id : string * parentId: string
     | EndEvent of id : string * parentId: string
+    | IntermediateEvent of id : string * parentId: string
     | SequenceFlow of source : string * target: string * id: string * parentId: string
     | MessageFlow of source : string * target: string * id: string * parentId: string
     | BoundaryFlow of source : string * target: string * id: string * parentId: string
@@ -72,8 +73,8 @@ module parser =
         | "task" -> Task (e.ID, e.ParentID) |> Some
         | "startEvent" -> StartEvent (e.ID, e.ParentID) |> Some
         | "endEvent" -> EndEvent (e.ID, e.ParentID) |> Some
-        | "sequenceFlow" -> SequenceFlow (e.Attributes.["sourceRef"], e.Attributes.["targetRef"], e.ID, e.ParentID) |> Some
-        | "messageFlow" -> MessageFlow (e.Attributes.["sourceRef"], e.Attributes.["targetRef"], e.ID, e.ParentID) |> Some
+        | "boundaryEvent" -> IntermediateEvent (e.ID, e.ParentID) |> Some
+        | "intermediateThrowEvent" -> IntermediateEvent (e.ID, e.ParentID) |> Some
         | _ -> None)
 
     let getFlows (model: BPMN.Model) = model.Elements |> Seq.map(fun e -> 

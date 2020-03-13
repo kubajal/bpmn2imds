@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="BPMN.Sharp" Version="1.0.7" />
+    <PackageReference Include="FsUnit" Version="3.8.0" />
     <PackageReference Include="nunit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
@@ -17,10 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="diagram.svg" />
     <None Include="diagram.bpmn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="diagram.svg" />
     <Compile Include="UtilsTests.fs" />
     <Compile Include="ParsingTests.fs" />
   </ItemGroup>
@@ -33,6 +34,8 @@
       <WrapperTool>tlbimp</WrapperTool>
     </COMReference>
   </ItemGroup>
+
+  <ItemGroup />
 
   <ItemGroup>
     <ProjectReference Include="..\bpmn2imds\bpmn2imds.fsproj" />
