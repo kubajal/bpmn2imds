@@ -15,6 +15,7 @@ type BPMNElement =
     | StartEvent of id : string * parentId: string
     | EndEvent of id : string * parentId: string
     | IntermediateEvent of id : string * parentId: string
+type BPMNFlow = 
     | SequenceFlow of source : string * target: string * id: string * parentId: string
     | MessageFlow of source : string * target: string * id: string * parentId: string
     | BoundaryFlow of source : string * target: string * id: string * parentId: string
@@ -81,7 +82,7 @@ module parser =
         match e.TypeName with
         | "sequenceFlow" -> SequenceFlow (e.Attributes.["sourceRef"], e.Attributes.["targetRef"], e.ID, e.ParentID) |> Some
         | "messageFlow" -> MessageFlow (e.Attributes.["sourceRef"], e.Attributes.["targetRef"], e.ID, e.ParentID) |> Some
-        | "boundaryEvent" -> BoundaryFlow (e.Attributes.["attachedToRef"],  e.ID, (lastN 7 e.Attributes.["attachedToRef"]) + (lastN <| 7 <| e.ID), e.ParentID) |> Some
+        | "boundaryEvent" -> BoundaryFlow (e.Attributes.["attachedToRef"],  e.ID, (lastN 7 e.Attributes.["attachedToRef"]) + "_" + (lastN <| 7 <| e.ID), e.ParentID) |> Some
         | _ -> None)
 
 (*    elif (e.TypeName == "task") then Task e.ID
