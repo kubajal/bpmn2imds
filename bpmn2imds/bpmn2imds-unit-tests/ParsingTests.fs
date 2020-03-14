@@ -1,4 +1,9 @@
+namespace bpmn2imds
 
+#if INTERACTIVE
+#r @"C:\Users\user\source\repos\DedAn\packages\BPMN.Sharp.1.0.6\lib\net20\BPMN.Sharp.dll"
+#r @"C:\Users\user\source\repos\bpmn2imds-v2\bpmn2imds\bpmn2imds\bin\Debug\netcoreapp3.1\bpmn2imds.dll"
+#endif
 open NUnit.Framework
 open bpmn2imds
 open FsUnit
@@ -18,6 +23,18 @@ module tests =
             parser.getFlows model
                 |> Seq.filter(fun e -> e.IsSome)
                 |> Seq.map(fun e -> e.Value)
+        
+        let shapes = 
+            parser.getShapes model
+                |> Seq.filter(fun e -> e.IsSome)
+                |> Seq.map(fun e -> e.Value)
+        
+        let edges = 
+            parser.getEdges model
+                |> Seq.filter(fun e -> e.IsSome)
+                |> Seq.map(fun e -> e.Value)
+                
+        let printSeq xs = Seq.iter (printfn "%A") xs
     
         [<Test>]
         member this.NumberOfElementsShouldBeCorrectCorrectly() =
@@ -96,3 +113,28 @@ module tests =
                     | _ -> false)
             Assert.AreEqual(1, Seq.length boundaryFlows)
             boundaryFlows |> should contain (BoundaryFlow ("Activity_1en9m0o", "Event_11maord", "1en9m0o_11maord", "Process_16buli2"))
+        
+        [<Test>]
+        member this.ShapesShouldBeParsedCorrectly() =
+            shapes |> should contain (Shape ("StartEvent_1rylu38", Point (230, 140)))
+            shapes |> should contain (Shape ("Activity_0vx2uea", Point (330,140)))
+            shapes |> should contain (Shape ("Event_0ylxgrh", Point (430, 140)))
+            shapes |> should contain (Shape ("Event_02rpjh7", Point (230, 300)))
+            shapes |> should contain (Shape ("Activity_1en9m0o", Point (320, 300)))
+            shapes |> should contain (Shape ("Event_10qvi3n", Point (510, 300)))
+            shapes |> should contain (Shape ("Event_11maord", Point (320, 340)))
+            shapes |> should contain (Shape ("Event_1onr7og", Point (410, 420)))
+            shapes |> should contain (Shape ("Event_19y1pjy", Point (410, 300)))
+            shapes |> should contain (Shape ("Participant_1udx6jt", Point (380, 140)))
+            shapes |> should contain (Shape ("Participant_065cq1k", Point (390, 355)))
+        
+        [<Test>]
+        member this.EdgesShouldBeParsedCorrectly() =
+            edges |> should contain  (Edge ("Flow_108gfjk",Point (248,140),Point (248,140)))
+            edges |> should contain  (Edge ("Flow_0levmfs",Point (380,140),Point (380,140)))
+            edges |> should contain  (Edge ("Flow_0n1pvzm",Point (248,300),Point (248,300)))
+            edges |> should contain  (Edge ("Flow_04zxtx8",Point (370,300),Point (370,300)))
+            edges |> should contain  (Edge ("MessageFlow_09q63um",Point (330,180),Point (330,180)))
+            edges |> should contain  (Edge ("Flow_1up2kuu",Point (320,358),Point (320,358)))
+            edges |> should contain  (Edge ("Flow_0hd9q6u",Point (428,300),Point (428,300)))
+            edges |> should contain  (Edge ("MessageFlow_0e15urb",Point (410,282),Point (410,282)))
