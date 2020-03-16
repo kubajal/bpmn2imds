@@ -40,11 +40,6 @@ module parser =
         match e with 
         | Some x -> f x
         | _ -> None)
-    //let (>>) xs f = xs |> Seq.map(fun e -> 
-    //    let result = e >>>> f
-    //    match result with
-    //        | Some x -> x
-    //        | None -> None)
     
     let (>>) xs f = xs |> Seq.map(fun e -> 
         e |> Option.map(f))
@@ -63,8 +58,6 @@ module parser =
             else None)
         |> Seq.map(fun e -> 
             e |> Option.map(fun (elementRef, s, e) -> Edge (elementRef, Start (s.X, s.Y), End (s.X, s.Y))))
-    // shapes |> printSeq
-
     
     let getShapes (model: BPMN.Model) = 
         model.Diagrams 
@@ -80,25 +73,6 @@ module parser =
         |> Seq.map(fun e -> 
             e |> Option.map(fun (elementRef, X, Y) -> 
                 Shape (elementRef, Middle (X, Y))))
-
-    //let getElements (model: BPMN.Model) = model.Elements |> Seq.map(fun e -> 
-    //    match e.TypeName with
-    //    | "process" -> Process (e.ID) |> Some
-    //    | "exclusiveGateway" -> ExclusiveGateway (e.ID, e.ParentID) |> Some
-    //    | "parallelGateway" -> ParallelGateway (e.ID, e.ParentID) |> Some
-    //    | "task" -> Task (e.ID, e.ParentID) |> Some
-    //    | "startEvent" -> StartEvent (e.ID, e.ParentID) |> Some
-    //    | "endEvent" -> EndEvent (e.ID, e.ParentID) |> Some
-    //    | "boundaryEvent" -> IntermediateEvent (e.ID, e.ParentID) |> Some
-    //    | "intermediateThrowEvent" -> IntermediateEvent (e.ID, e.ParentID) |> Some
-    //    | _ -> None)
-
-    //let getFlows (model: BPMN.Model) = model.Elements |> Seq.map(fun e -> 
-    //    match e.TypeName with
-    //    | "sequenceFlow" -> SequenceFlow (e.Attributes.["sourceRef"], e.Attributes.["targetRef"], e.ID, e.ParentID) |> Some
-    //    | "messageFlow" -> MessageFlow (e.Attributes.["sourceRef"], e.Attributes.["targetRef"], e.ID, e.ParentID) |> Some
-    //    | "boundaryEvent" -> BoundaryFlow (e.Attributes.["attachedToRef"],  e.ID, (lastN 7 e.Attributes.["attachedToRef"]) + "_" + (lastN <| 7 <| e.ID), e.ParentID) |> Some
-    //    | _ -> None)
 
     let parse (model: BPMN.Model) = 
         let edges = getEdges model
@@ -133,13 +107,4 @@ module parser =
                         | "boundaryEvent" -> BoundaryFlow (elements.Item(source), elements.Item(target), (lastN 7 e.Attributes.["attachedToRef"]) + "_" + (lastN 7 e.ID), left, right) |> Some
                         | _ -> None)
                 |> Seq.choose id
-        (elements |> Map.toSeq |> Seq.map snd, flows)
-
-
-(*    elif (e.TypeName == "task") then Task e.ID
-    elif (e.TypeName == "startEvent") then StartEvent e.ID
-    elif (e.TypeName == "endEvent") then EndEvent e.ID
-    elif (e.TypeName == "sequenceFlow") then SequenceFlow (e.Attributes["sourceRef"], e.Attributes["targetRef"], e.ID)
-    elif (e.TypeName == "sequenceFlow") then Messageflow (e.Attributes["sourceRef"], e.Attributes["targetRef"], e.ID))
-*)        
-// let essentialGraph = bpmn2imds.Graphs.FirstLevel.EssentialGraph(bpmn)
+        (elements, flows)
