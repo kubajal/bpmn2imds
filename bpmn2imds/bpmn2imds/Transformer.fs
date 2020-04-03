@@ -6,10 +6,10 @@ type Node =
     | Start of id: string * middle: Point
     | End of id: string * middle: Point
 
-type Edge =
-    | SequenceEdge of source : Node * target: Node * id: string * left: Point * right: Point
-    | MessageEdge of source : Node * target: Node * id: string * left: Point * right: Point
-    | BoundaryEdge of source : Node * target: Node * id: string * left: Point * right: Point
+//type Edge =
+//    | SequenceEdge of source : Node * target: Node * id: string * left: Point * right: Point
+//    | MessageEdge of source : Node * target: Node * id: string * left: Point * right: Point
+//    | BoundaryEdge of source : Node * target: Node * id: string * left: Point * right: Point
 
 module Transformer =
 
@@ -40,7 +40,7 @@ module Transformer =
             | (1, _) -> Ok [AND (id, middle)]
             | (_, _) -> Ok [XOR (id, middle); AND (id, middle)]
     
-    let transformBPMNElements (flows: seq<BPMNFlow>) = 
-        flows |> Seq.map(fun e -> 
-            match e with
-            | )
+    //let transformBPMNElements (flows: seq<BPMNFlow>) = 
+    //    flows |> Seq.map(fun e -> 
+    //        match e with
+    //        | )

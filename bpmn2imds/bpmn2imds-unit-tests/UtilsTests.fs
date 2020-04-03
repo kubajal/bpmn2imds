@@ -1,45 +1,45 @@
-module bpmn2imds_utils_unit_tests
+namespace bpmn2imds_unit
 
 open NUnit.Framework
 open bpmn2imds
 
-[<SetUp>]
-let Setup () =
-    ()
-    
-[<Test>]
-let LastNShouldWorkOnEmptyString () =
-    Assert.IsTrue((parser.lastN <| 1 <| "") = "")
-    
-[<Test>]
-let LastNShouldWorkOnSingleChar () =
-    Assert.IsTrue((parser.lastN <| 1 <| "a") = "a")
-    
-[<Test>]
-let LastNShouldWorkWhenNIsBiggerThanLength() =
-    Assert.IsTrue((parser.lastN <| 5 <| "abc") = "abc")
-    
-[<Test>]
-let LastNShouldWorkWhenNIsSmallerThanLength() =
-    Assert.IsTrue((parser.lastN <| 2 <| "abc") = "bc")
+module bpmn2imds_utils_unit_tests =
 
-[<Test>]
-let LastNShouldWorkWhenNIsEqualToLength() =
-    Assert.IsTrue((parser.lastN <| 3 <| "abc") = "abc")
+    [<TestFixture>]
+    type bpmn2imds_utils_tests =
     
-[<Test>]
-let IsNullShouldWorkOnNull() =
-    Assert.IsTrue(parser.isNull null = true)
+        [<Test>]
+        member this.LastNShouldWorkOnEmptyString () =
+            Assert.IsTrue((parser.lastN 1 "") = "")
+    
+        [<Test>]
+        member this.LastNShouldWorkOnSingleChar () =
+            Assert.IsTrue((parser.lastN <| 1 <| "a") = "a")
+    
+        [<Test>]
+        member this.LastNShouldWorkWhenNIsBiggerThanLength() =
+            Assert.IsTrue((parser.lastN <| 5 <| "abc") = "abc")
+    
+        [<Test>]
+        member this.LastNShouldWorkWhenNIsSmallerThanLength() =
+            Assert.IsTrue((parser.lastN <| 2 <| "abc") = "bc")
 
-[<Test>]
-let IsNullShouldWorkOnNotNull() =
-    Assert.IsTrue(parser.isNull "asd" = false)
+        [<Test>]
+        member this.LastNShouldWorkWhenNIsEqualToLength() =
+            Assert.IsTrue((parser.lastN <| 3 <| "abc") = "abc")
+    
+        [<Test>]
+        member this.IsNullShouldWorkOnNull() =
+            Assert.IsTrue(parser.isNull null = true)
 
+        [<Test>]
+        member this.IsNullShouldWorkOnNotNull() =
+            Assert.IsTrue(parser.isNull "asd" = false)
 
-[<Test>]
-let IsNotNullShouldWorkOnNull() =
-    Assert.IsTrue(parser.isNotNull null = false)
+        [<Test>]
+        member this.IsNotNullShouldWorkOnNull() =
+            Assert.IsTrue(parser.isNotNull null = false)
 
-[<Test>]
-let IsNotNullShouldWorkOnNotNull() =
-    Assert.IsTrue(parser.isNotNull "asd" = true)
+        [<Test>]
+        member this.IsNotNullShouldWorkOnNotNull() =
+            Assert.IsTrue(parser.isNotNull "asd" = true)

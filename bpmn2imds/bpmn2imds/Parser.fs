@@ -15,6 +15,7 @@ type BPMNElement =
     | StartEvent of id : string * parentId: string * middle: Point
     | EndEvent of id : string * parentId: string * middle: Point
     | IntermediateEvent of id : string * parentId: string * middle: Point
+    | BoundaryEvent of id : string * parentId: string * middle: Point
     | GenericNode of id : string * nodeType: string * parentId: string * middle: Point
 
 type BPMNFlow = 
@@ -89,7 +90,7 @@ module parser =
                             | "task" -> (el.ID, Task (el.ID, el.ParentID, middle))
                             | "startEvent" -> (el.ID, StartEvent (el.ID, el.ParentID, middle))
                             | "endEvent" -> (el.ID, EndEvent (el.ID, el.ParentID, middle))
-                            | "boundaryEvent" -> (el.ID, IntermediateEvent (el.ID, el.ParentID, middle))
+                            | "boundaryEvent" -> (el.ID, BoundaryEvent (el.ID, el.ParentID, middle))
                             | "intermediateThrowEvent" -> (el.ID, IntermediateEvent (el.ID, el.ParentID, middle))
                             | _ -> (el.ID, GenericNode (el.ID, el.TypeName, el.ParentID, middle)))
                 |> Seq.choose id
