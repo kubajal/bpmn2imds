@@ -1,12 +1,12 @@
-namespace bpmn2imds_unit
+namespace bpmn2imds
 
 open NUnit.Framework
 open bpmn2imds
 
-module bpmn2imds_utils_unit_tests =
+module utils_unit_tests =
 
     [<TestFixture>]
-    type bpmn2imds_utils_tests =
+    type bpmn2imds_utils_tests () =
     
         [<Test>]
         member this.LastNShouldWorkOnEmptyString () =
