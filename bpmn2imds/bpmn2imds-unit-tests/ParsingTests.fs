@@ -42,7 +42,7 @@ module tests =
         
         [<Test>]
         member this.BoundaryEventsShouldBeParsedCorrectly() =
-            elements |> should contain (BoundaryEvent ("Event_11maord","Process_16buli2",Point (320,340)))
+            elements |> should contain (BoundaryEvent ("Event_11maord","Process_16buli2", "Activity_1en9m0o", Point (320,340)))
 
         [<Test>]
         member this.IntermediateEventsShouldBeParsedCorrectly() =
@@ -56,18 +56,25 @@ module tests =
         [<Test>]
         member this.NumberOfParsedElementsShouldBeCorrect() =
             Seq.length elements |> should equal 11 // 9 nodes + 2 participants
-
+            
+        [<Test>]
         member this.SequenceFlowsShouldBeParsedCorrectly() =
-            flows |> should contain (SequenceFlow (StartEvent ("StartEvent_1rylu38","Process_1dsnu7p",Point (230,140)), Task ("Activity_0vx2uea","Process_1dsnu7p",Point (330,140)),"Flow_108gfjk", Point (248,140),Point (248,140)))
-            flows |> should contain (SequenceFlow (Task ("Activity_0vx2uea","Process_1dsnu7p",Point (330,140)), EndEvent ("Event_0ylxgrh","Process_1dsnu7p",Point (430,140)),"Flow_0levmfs", Point (380,140),Point (380,140)))
-            flows |> should contain (SequenceFlow (StartEvent ("Event_02rpjh7","Process_16buli2",Point (230,300)), Task ("Activity_1en9m0o","Process_16buli2",Point (320,300)),"Flow_0n1pvzm", Point (248,300),Point (248,300)))
-            flows |> should contain (SequenceFlow (Task ("Activity_1en9m0o","Process_16buli2",Point (320,300)), IntermediateEvent ("Event_19y1pjy","Process_16buli2",Point (410,300)), "Flow_04zxtx8",Point (370,300),Point (370,300)))
-            flows |> should contain (SequenceFlow (BoundaryEvent ("Event_11maord","Process_16buli2",Point (320,340)), EndEvent ("Event_1onr7og","Process_16buli2",Point (410,420)),"Flow_1up2kuu", Point (320,358),Point (320,358)))
-            flows |> should contain (SequenceFlow (IntermediateEvent ("Event_19y1pjy","Process_16buli2",Point (410,300)), EndEvent ("Event_10qvi3n","Process_16buli2",Point (510,300)),"Flow_0hd9q6u", Point (428,300),Point (428,300)))
+            flows |> should contain (SequenceFlow (StartEvent ("StartEvent_1rylu38","Process_1dsnu7p",Point (230,140)), Task ("Activity_0vx2uea","Process_1dsnu7p",Point (330,140)),"Flow_108gfjk", Point (248,140),Point (280,140)))
+            flows |> should contain (SequenceFlow (Task ("Activity_0vx2uea","Process_1dsnu7p",Point (330,140)), EndEvent ("Event_0ylxgrh","Process_1dsnu7p",Point (430,140)),"Flow_0levmfs", Point (380,140),Point (412,140)))
+            flows |> should contain (SequenceFlow (StartEvent ("Event_02rpjh7","Process_16buli2",Point (230,300)), Task ("Activity_1en9m0o","Process_16buli2",Point (320,300)),"Flow_0n1pvzm", Point (248,300),Point (270,300)))
+            flows |> should contain (SequenceFlow (Task ("Activity_1en9m0o","Process_16buli2",Point (320,300)), IntermediateEvent ("Event_19y1pjy","Process_16buli2",Point (410,300)), "Flow_04zxtx8",Point (370,300),Point (392,300)))
+            flows |> should contain (SequenceFlow (BoundaryEvent ("Event_11maord","Process_16buli2", "Activity_1en9m0o", Point (320,340)), EndEvent ("Event_1onr7og","Process_16buli2",Point (410,420)),"Flow_1up2kuu", Point (320,358),Point (392,420)))
+            flows |> should contain (SequenceFlow (IntermediateEvent ("Event_19y1pjy","Process_16buli2",Point (410,300)), EndEvent ("Event_10qvi3n","Process_16buli2",Point (510,300)),"Flow_0hd9q6u", Point (428,300),Point (492,300)))
         
+        [<Test>]
         member this.MessageFlowsShouldBeParsedCorrectly() =
-            flows |> should contain (MessageFlow (Task ("Activity_0vx2uea","Process_1dsnu7p",Point (330,140)), Task ("Activity_1en9m0o","Process_16buli2",Point (320,300)), "MessageFlow_09q63um",Point (330,180),Point (330,180)))
-            flows |> should contain (MessageFlow (IntermediateEvent ("Event_19y1pjy","Process_16buli2",Point (410,300)), Task ("Activity_0vx2uea","Process_1dsnu7p",Point (330,140)), "MessageFlow_0e15urb",Point (410,282),Point (410,282)))
-
+            flows |> should contain (MessageFlow (Task ("Activity_0vx2uea","Process_1dsnu7p",Point (330,140)), Task ("Activity_1en9m0o","Process_16buli2",Point (320,300)), "MessageFlow_09q63um",Point (330,180),Point (330,260)))
+            flows |> should contain (MessageFlow (IntermediateEvent ("Event_19y1pjy","Process_16buli2",Point (410,300)), Task ("Activity_0vx2uea","Process_1dsnu7p",Point (330,140)), "MessageFlow_0e15urb",Point (410,282),Point (350,180)))
+            
+        [<Test>]
+        member this.BoundaryFlowsShouldBeParsedCorrectly() =
+            flows |> should contain (BoundaryFlow (Task ("Activity_1en9m0o","Process_16buli2",Point (320,300)), BoundaryEvent ("Event_11maord","Process_16buli2", "Activity_1en9m0o", Point (320,340)), "Activity_1en9m0o_Event_11maord",Point (320,300),Point (320,340)))
+            
+        [<Test>]
         member this.NumberOfParsedFlowsShouldBeCorrect() =
-            Seq.length flows |> should equal 8 // 6 Sequence Flows + 2 Message Flows
+            Seq.length flows |> should equal 9 // 6 Sequence Flows + 2 Message Flows + 1 Boundary Flow

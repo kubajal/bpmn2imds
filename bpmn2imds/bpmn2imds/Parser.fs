@@ -15,7 +15,7 @@ type BPMNElement =
     | StartEvent of id : string * parentId: string * middle: Point
     | EndEvent of id : string * parentId: string * middle: Point
     | IntermediateEvent of id : string * parentId: string * middle: Point
-    | BoundaryEvent of id : string * parentId: string * middle: Point
+    | BoundaryEvent of id : string * parentId: string * attachedToRef: string * middle: Point
     | GenericNode of id : string * nodeType: string * parentId: string * middle: Point
 
 type BPMNFlow = 
@@ -45,11 +45,17 @@ module parser =
     let (>>) xs f = xs |> Seq.map(fun e -> 
         e |> Option.map(f))
     let ($) left right = left right
+    let foldResults = fun (sucs, errs) e ->
+        match e with
+        | Ok _x -> (_x :: sucs, errs)
+        | Error _x -> (sucs, (Error _x) :: errs)
+    let splitResults rs =
+        Seq.fold foldResults ([], []) rs
 
     // we are interested not in the ID of the edge (which is of form "<...>_di"
     // but in the <...> part which is saved in e.ElementRef which is the id of the BPMN element
     // that is represented by drawing of the edge
-    let getEdges (model: BPMN.Model) = 
+    let getSeqAndMesEdges (model: BPMN.Model) = 
         model.Diagrams 
         |> Seq.collect(fun e -> e.Planes)
         |> Seq.collect(fun e -> e.Edges)
@@ -58,7 +64,7 @@ module parser =
             then (e.ElementRef, Seq.head e.Points, Seq.last e.Points) |> Some
             else None)
         |> Seq.map(fun e -> 
-            e |> Option.map(fun (elementRef, s, e) -> Edge (elementRef, Start (s.X, s.Y), End (s.X, s.Y))))
+            e |> Option.map(fun (elementRef, s, e) -> Edge (elementRef, Start (s.X, s.Y), End (e.X, e.Y))))
     
     let getShapes (model: BPMN.Model) = 
         model.Diagrams 
@@ -76,7 +82,7 @@ module parser =
                 Shape (elementRef, Middle (X, Y))))
 
     let parse (model: BPMN.Model) = 
-        let edges = getEdges model
+        let edges = getSeqAndMesEdges model
         let shapes = getShapes model
         let elements = 
             shapes 
@@ -90,11 +96,35 @@ module parser =
                             | "task" -> (el.ID, Task (el.ID, el.ParentID, middle))
                             | "startEvent" -> (el.ID, StartEvent (el.ID, el.ParentID, middle))
                             | "endEvent" -> (el.ID, EndEvent (el.ID, el.ParentID, middle))
-                            | "boundaryEvent" -> (el.ID, BoundaryEvent (el.ID, el.ParentID, middle))
+                            | "boundaryEvent" -> (el.ID, BoundaryEvent (el.ID, el.ParentID, el.Attributes.["attachedToRef"], middle))
                             | "intermediateThrowEvent" -> (el.ID, IntermediateEvent (el.ID, el.ParentID, middle))
                             | _ -> (el.ID, GenericNode (el.ID, el.TypeName, el.ParentID, middle)))
                 |> Seq.choose id
                 |> Map.ofSeq
+
+        let tryBoundaryFlows = 
+            elements 
+                |> Map.toSeq
+                |> Seq.map(snd)
+                |> Seq.map(fun e -> 
+                    match e with 
+                        | BoundaryEvent (eventId, eventParent, eventAttachedTo, eventMiddle) ->
+                            Some $ match elements.TryFind(eventAttachedTo) with
+                            | Some (Task (taskId, taskParent, taskMiddle)) -> 
+                                Ok (BoundaryFlow (
+                                    Task (taskId, taskParent, taskMiddle),
+                                    BoundaryEvent (eventId, eventParent, eventAttachedTo, eventMiddle),
+                                    taskId + "_" + eventId,
+                                    taskMiddle,
+                                    eventMiddle))
+                            | _ -> Error ("Task with id= " + eventAttachedTo + " was not found in BPMN elements table,
+                                          so it cannot be attached to the Event with id=" + eventId)
+                        | _ -> None)
+                |> Seq.choose id
+        
+        let (boundaryFlows, errors) = 
+            splitResults tryBoundaryFlows
+
         let flows = 
             edges
                 |> Seq.choose id
@@ -105,7 +135,7 @@ module parser =
                         match e.TypeName with
                         | "sequenceFlow" -> SequenceFlow (elements.Item(source), elements.Item(target), e.ID, left, right) |> Some
                         | "messageFlow" -> MessageFlow (elements.Item(source), elements.Item(target), e.ID, left, right) |> Some
-                        | "boundaryEvent" -> BoundaryFlow (elements.Item(source), elements.Item(target), (lastN 7 e.Attributes.["attachedToRef"]) + "_" + (lastN 7 e.ID), left, right) |> Some
                         | _ -> None)
                 |> Seq.choose id
+                |> Seq.append boundaryFlows
         (elements, flows)
