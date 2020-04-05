@@ -7,21 +7,29 @@ namespace bpmn2imds
 open BPMN
 type Point = Point of x: int * y: int
 
+type Warning = Warning of s: string
+
 type BPMNElement =
     | Process of id: string
-    | ExclusiveGateway of id : string * parentId: string * middle: Point
-    | ParallelGateway of id : string * parentId: string * middle: Point
-    | Task of id : string * parentId: string * middle: Point
-    | StartEvent of id : string * parentId: string * middle: Point
-    | EndEvent of id : string * parentId: string * middle: Point
-    | IntermediateEvent of id : string * parentId: string * middle: Point
-    | BoundaryEvent of id : string * parentId: string * attachedToRef: string * middle: Point
-    | GenericNode of id : string * nodeType: string * parentId: string * middle: Point
+    | ExclusiveGateway of id: string * parentId: string * middle: Point
+    | ParallelGateway of id: string * parentId: string * middle: Point
+    | Task of id: string * parentId: string * middle: Point
+    | StartEvent of id: string * parentId: string * middle: Point
+    | EndEvent of id: string * parentId: string * middle: Point
+    | IntermediateEvent of id: string * parentId: string * middle: Point
+    | BoundaryEvent of id: string * parentId: string * attachedToRef: string * middle: Point
+    | GenericNode of id: string * nodeType: string * parentId: string * middle: Point
 
 type BPMNFlow = 
-    | SequenceFlow of source : BPMNElement * target: BPMNElement * id: string * left: Point * right: Point
-    | MessageFlow of source : BPMNElement * target: BPMNElement * id: string * left: Point * right: Point
-    | BoundaryFlow of source : BPMNElement * target: BPMNElement * id: string * left: Point * right: Point
+    | SequenceFlow of source: BPMNElement * target: BPMNElement * id: string * left: Point * right: Point
+    | MessageFlow of source: BPMNElement * target: BPMNElement * id: string * left: Point * right: Point
+    | BoundaryFlow of source: BPMNElement * target: BPMNElement * id: string * left: Point * right: Point
+
+type ParsingError =
+    | ShapeElementRefNull
+    | ShapePointsCountLessThanOne
+    | ShapePointsNull
+    | UknownFlowType
     
 type Shape = Shape of elementRef: string * m: Point
 type Edge = Edge of elementRef: string * s: Point * e: Point
@@ -60,11 +68,15 @@ module parser =
         |> Seq.collect(fun e -> e.Planes)
         |> Seq.collect(fun e -> e.Edges)
         |> Seq.map(fun e -> 
-            if isNotNull e.ElementRef && isNotNull e.Points && e.Points.Count > 1
-            then (e.ElementRef, Seq.head e.Points, Seq.last e.Points) |> Some
-            else None)
+            if isNull e.ElementRef then
+                Error ShapeElementRefNull
+            else if isNull e.Points then
+                Error ShapePointsNull
+            else if e.Points.Count < 2 then
+                Error ShapePointsCountLessThanOne
+            else Ok (e.ElementRef, Seq.head e.Points, Seq.last e.Points))
         |> Seq.map(fun e -> 
-            e |> Option.map(fun (elementRef, s, e) -> Edge (elementRef, Start (s.X, s.Y), End (e.X, e.Y))))
+            e |> Result.map(fun (elementRef, s, e) -> Edge (elementRef, Start (s.X, s.Y), End (e.X, e.Y))))
     
     let getShapes (model: BPMN.Model) = 
         model.Diagrams 
@@ -122,20 +134,21 @@ module parser =
                         | _ -> None)
                 |> Seq.choose id
         
-        let (boundaryFlows, errors) = 
+        let (boundaryFlows, boundaryFlowsErrors) = 
             splitResults tryBoundaryFlows
 
-        let flows = 
+        let tryFlows = 
             edges
-                |> Seq.choose id
-                |> Seq.map (fun (Edge (elementRef, left, right)) ->
+                |> Seq.map (function
+                    | Ok (Edge (elementRef, left, right)) ->
                         let e = model.ElementByID(elementRef)
                         let source = e.Attributes.["sourceRef"]
                         let target = e.Attributes.["targetRef"]
                         match e.TypeName with
-                        | "sequenceFlow" -> SequenceFlow (elements.Item(source), elements.Item(target), e.ID, left, right) |> Some
-                        | "messageFlow" -> MessageFlow (elements.Item(source), elements.Item(target), e.ID, left, right) |> Some
-                        | _ -> None)
-                |> Seq.choose id
-                |> Seq.append boundaryFlows
-        (elements, flows)
+                        | "sequenceFlow" -> Ok $ SequenceFlow (elements.Item(source), elements.Item(target), e.ID, left, right)
+                        | "messageFlow" -> Ok $ MessageFlow (elements.Item(source), elements.Item(target), e.ID, left, right)
+                        | _ -> Error UknownFlowType
+                    | Error _x -> Error _x)
+        let (seqOrMesFlows, seqOrMesFlowsError) = 
+                splitResults tryFlows
+        (elements, Seq.append seqOrMesFlows boundaryFlows)
