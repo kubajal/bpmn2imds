@@ -1,7 +1,7 @@
 namespace bpmn2imds
 
 open NUnit.Framework
-open bpmn2imds
+open Utils
 
 module utils_unit_tests =
 
@@ -10,36 +10,36 @@ module utils_unit_tests =
     
         [<Test>]
         member this.LastNShouldWorkOnEmptyString () =
-            Assert.IsTrue((parser.lastN 1 "") = "")
+            Assert.IsTrue((lastN 1 "") = "")
     
         [<Test>]
         member this.LastNShouldWorkOnSingleChar () =
-            Assert.IsTrue((parser.lastN <| 1 <| "a") = "a")
+            Assert.IsTrue((lastN <| 1 <| "a") = "a")
     
         [<Test>]
         member this.LastNShouldWorkWhenNIsBiggerThanLength() =
-            Assert.IsTrue((parser.lastN <| 5 <| "abc") = "abc")
+            Assert.IsTrue((lastN <| 5 <| "abc") = "abc")
     
         [<Test>]
         member this.LastNShouldWorkWhenNIsSmallerThanLength() =
-            Assert.IsTrue((parser.lastN <| 2 <| "abc") = "bc")
+            Assert.IsTrue((lastN <| 2 <| "abc") = "bc")
 
         [<Test>]
         member this.LastNShouldWorkWhenNIsEqualToLength() =
-            Assert.IsTrue((parser.lastN <| 3 <| "abc") = "abc")
+            Assert.IsTrue((lastN <| 3 <| "abc") = "abc")
     
         [<Test>]
         member this.IsNullShouldWorkOnNull() =
-            Assert.IsTrue(parser.isNull null = true)
+            Assert.IsTrue(isNull null = true)
 
         [<Test>]
         member this.IsNullShouldWorkOnNotNull() =
-            Assert.IsTrue(parser.isNull "asd" = false)
+            Assert.IsTrue(isNull "asd" = false)
 
         [<Test>]
         member this.IsNotNullShouldWorkOnNull() =
-            Assert.IsTrue(parser.isNotNull null = false)
+            Assert.IsTrue(isNotNull null = false)
 
         [<Test>]
         member this.IsNotNullShouldWorkOnNotNull() =
-            Assert.IsTrue(parser.isNotNull "asd" = true)
+            Assert.IsTrue(isNotNull "asd" = true)

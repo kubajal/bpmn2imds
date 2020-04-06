@@ -15,20 +15,20 @@ module Transformer =
 
     let transform (element: BPMNElement) (incoming: seq<BPMNFlow>) (outgoing: seq<BPMNFlow>) =
         match element with
-        | ExclusiveGateway (id, parent, middle) -> Ok [XOR (id, middle)]
-        | EndEvent (id, parent, middle) -> 
+        | BPMNElement (ExclusiveGateway, id, parent, middle) -> Ok [XOR (id, middle)]
+        | BPMNElement (EndEvent, id, parent, middle) -> 
             match (Seq.length incoming, Seq.length outgoing) with
             | (0, 0) -> Ok []
             | (1, 0) -> Ok [End (id, middle)]
             | (_, 0) -> Ok [XOR (id, middle); End (id, middle)]
             | (_, _) -> Error "End Event should not have outgoing flows!"
-        | StartEvent (id, parent, middle) -> 
+        | BPMNElement (StartEvent, id, parent, middle) -> 
             match (Seq.length incoming, Seq.length outgoing) with
             | (0, 0) -> Ok []
             | (0, 1) -> Ok [Start (id, middle)]
             | (0, _) -> Ok [Start (id, middle); AND (id, middle)]
             | (_, _) -> Error "Start Event should not have incoming flows!"
-        | Task (id, parent, middle) ->
+        | BPMNElement (Activity, id, parent, middle) ->
             match (Seq.length incoming, Seq.length outgoing) with
             | (0, 0) -> Ok []
             | (0, 1) -> Ok [Start (id, middle)]
