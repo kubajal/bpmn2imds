@@ -30,29 +30,74 @@ type BPMNFlow =
 type Shape = Shape of elementRef: string * m: Point
 type Edge = Edge of elementRef: string * s: Point * e: Point
     
-module parser =
+type Parser() =
+    member this.Bind(m, f) =
+        Result.bind m f
+    
+    member this.Return(x) =
+        Ok (x, [])
+    
+    member this.For(list, f) = list |> Seq.map(fun e -> f e)
+        
+    member this.Yield(x) = 
+        Ok (x, [])
+
+    member this.YieldFrom(x) = 
+        x
+
+    member this.Zero() =
+        None
+    
+module processor =
     let Middle  = Point
     let Start   = Point
     let End     = Point
+    
+    type Test() =
+        member this.Bind(m, f) =
+            Result.bind m f
+        
+        member this.Return(x) =
+            Ok x
+        
+        member this.For(list, f) = list |> Seq.map(fun e -> f e)
+            
+        member this.Yield(x) = 
+            Ok x
+    
+        member this.YieldFrom(x) = 
+            x
+    
+        member this.Zero() =
+            Error "zero"
+    let test = new Test()
+
+    let x = [1;2;3]
+
+    let y = test {
+        for e in x do
+            if(e = 2) 
+                then return e + 5
+                else yield! Error e
+    }
+    let parser = new Parser()
 
     // we are interested not in the ID of the edge (which is of form "<...>_di"
     // but in the <...> part which is saved in e.ElementRef which is the id of the BPMN element
     // that is represented by drawing of the edge
-    let getSeqAndMesEdges (model: BPMN.Model) = 
-        seq {
-            for e in model.Diagrams 
-                |> Seq.collect(fun e -> e.Planes) 
-                |> Seq.collect(fun e -> e.Edges) ->
-            let edge = 
-                if isNull e.ElementRef then
-                    Error (ShapeElementRefNull e.ID)
-                else if isNull e.Points then
-                    Error (ShapePointsNull e.ID)
-                else if e.Points.Count < 2 then
-                    Error (ShapePointsCountLessThanOne e.ID)
-                else Ok (e.ElementRef, Seq.head e.Points, Seq.last e.Points)
-            edge |> Result.map(fun (elementRef, s, e) -> Edge (elementRef, Start (s.X, s.Y), End (e.X, e.Y)))
-        }
+    let getSeqAndMesEdges (model: BPMN.Model) = parser {
+            let s = model.Diagrams |> Seq.collect(fun e -> e.Planes) |> Seq.collect(fun e -> e.Edges)
+            for e in s do 
+                let t = 
+                    if isNull e.ElementRef then
+                        Error (ShapeElementRefNull e.ID)
+                    else if isNull e.Points then
+                        Error (ShapePointsNull e.ID)
+                    else if e.Points.Count < 2 then
+                        Error (ShapePointsCountLessThanOne e.ID)
+                    else Ok (e.ElementRef, Seq.head e.Points, Seq.last e.Points) 
+                yield! t |> Result.map(fun (elementRef, s, e) -> Edge (elementRef, Start (s.X, s.Y), End (e.X, e.Y)))
+            }
     let getShapes (model: BPMN.Model) = 
         seq {
             for s in model.Diagrams 

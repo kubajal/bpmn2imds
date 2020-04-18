@@ -18,7 +18,7 @@ module tests =
     type bpmn2imds_unit_tests () =
 
         let model = BPMN.Model.Read("diagram.bpmn")
-        let (els, flows) = parser.parse model
+        let (els, flows) = processor.parse model
         let elements = els |> Map.toSeq |> Seq.map snd
 
         //let printSeq xs = Seq.iter (printfn "%A") xs
