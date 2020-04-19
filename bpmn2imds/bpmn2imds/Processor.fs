@@ -32,7 +32,7 @@ type Edge = Edge of elementRef: string * s: Point * e: Point
     
 type Parser() =
     member this.Bind(m, f) =
-        Result.bind m f
+        Result.bind f m
     
     member this.Return(x) =
         Ok (x, [])
@@ -48,56 +48,41 @@ type Parser() =
     member this.Zero() =
         None
     
+    [<CustomOperation("apply")>]
+    member this.Apply(x, fs) =
+        match fs with 
+        | f :: tail -> this.Apply(this.Bind(x, f), tail)
+        | [] -> x
+        
+    [<CustomOperation("validateEdge")>]
+    member this.validateEdge (e: BPMN.Edge) = 
+        if isNull e.ElementRef then
+            Error (ShapeElementRefNull e.ID)
+        else if isNull e.Points then
+            Error (ShapePointsNull e.ID)
+        else if e.Points.Count < 2 then
+            Error (ShapePointsCountLessThanOne e.ID)
+        else Ok (e, [])
+    
 module processor =
     let Middle  = Point
     let Start   = Point
     let End     = Point
-    
-    type Test() =
-        member this.Bind(m, f) =
-            Result.bind m f
-        
-        member this.Return(x) =
-            Ok x
-        
-        member this.For(list, f) = list |> Seq.map(fun e -> f e)
-            
-        member this.Yield(x) = 
-            Ok x
-    
-        member this.YieldFrom(x) = 
-            x
-    
-        member this.Zero() =
-            Error "zero"
-    let test = new Test()
 
-    let x = [1;2;3]
-
-    let y = test {
-        for e in x do
-            if(e = 2) 
-                then return e + 5
-                else yield! Error e
-    }
     let parser = new Parser()
 
     // we are interested not in the ID of the edge (which is of form "<...>_di"
     // but in the <...> part which is saved in e.ElementRef which is the id of the BPMN element
     // that is represented by drawing of the edge
-    let getSeqAndMesEdges (model: BPMN.Model) = parser {
-            let s = model.Diagrams |> Seq.collect(fun e -> e.Planes) |> Seq.collect(fun e -> e.Edges)
+    let getSeqAndMesEdges (model: BPMN.Model) = 
+        let s = model.Diagrams |> Seq.collect(fun e -> e.Planes) |> Seq.collect(fun e -> e.Edges)
+        parser {
             for e in s do 
-                let t = 
-                    if isNull e.ElementRef then
-                        Error (ShapeElementRefNull e.ID)
-                    else if isNull e.Points then
-                        Error (ShapePointsNull e.ID)
-                    else if e.Points.Count < 2 then
-                        Error (ShapePointsCountLessThanOne e.ID)
-                    else Ok (e.ElementRef, Seq.head e.Points, Seq.last e.Points) 
-                yield! t |> Result.map(fun (elementRef, s, e) -> Edge (elementRef, Start (s.X, s.Y), End (e.X, e.Y)))
-            }
+                yield!
+                    parser.validateEdge e
+                        |> Result.map(fun (e, warns) -> (e.ElementRef, Seq.head e.Points, Seq.last e.Points, warns))
+                        |> Result.map(fun (elementRef, s, e, warns) -> (Edge (elementRef, Start (s.X, s.Y), End (e.X, e.Y)), warns))
+        }
     let getShapes (model: BPMN.Model) = 
         seq {
             for s in model.Diagrams 
@@ -175,7 +160,7 @@ module processor =
         let edges = getSeqAndMesEdges model
         let tryFlows = 
             edges |> Seq.map (fun e -> 
-                e |> Result.bind (fun (Edge (elementRef, left, right)) ->
+                e |> Result.bind (fun (Edge (elementRef, left, right), warns) ->
                     let e = model.ElementByID(elementRef)
                     let source = e.Attributes.["sourceRef"]
                     let target = e.Attributes.["targetRef"]
