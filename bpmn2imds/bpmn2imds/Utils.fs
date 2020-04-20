@@ -4,20 +4,6 @@
 
 namespace bpmn2imds
 
-type ParsingWarning = 
-    | ShapeBoundsCountsGreaterThanOne of elementId: string
-    | CastingToGenericNode of elementId: string * elementType: string
-    | ShapeBoundsCountNotEqualOne of elementId: string
-    | AttachedToRefIsNotActivity of boundaryEventId: string * attachedToRef: string
-
-type ParsingError =
-    | ShapeElementRefNull of elementId: string
-    | ShapePointsCountLessThanOne of elementId: string
-    | ShapePointsNull of elementId: string
-    | ElementNotFound of elementId: string
-    | UknownFlowType of unknownFlowType: string
-    | AttachedToRefNotFound of attachedToRef: string * eventId: string
-
 module Utils =
     let lastN N (xs: string) = xs.[(max (xs.Length - N) 0)..]
     let isNull x = match x with null -> true | _ -> false
