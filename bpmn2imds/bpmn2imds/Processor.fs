@@ -7,39 +7,30 @@ namespace bpmn2imds
 open BPMN
 open Utils
 
-type Point = Point of x: int * y: int
-
-type BPMNElementType = 
-    | Process
-    | ExclusiveGateway
-    | ParallelGateway
-    | Activity
-    | StartEvent
-    | EndEvent
-    | IntermediateEvent
-    | BoundaryEvent of attachedToRef: string
-    | GenericNode of nodeType: string
-
-type BPMNElement = 
-| BPMNElement of elementType: BPMNElementType * id: string * parentId: string option * middle: Point
-
-type FlowType =
-    | Sequence
-    | Message
-    | Boundary
-    | Link
-
-type BPMNFlow = BPMNFlow of flowType: FlowType * source: BPMNElement * target: BPMNElement * id: string * left: Point * right: Point
-
-type Shape = Shape of elementRef: string * m: Point
-type Edge = Edge of elementRef: string * s: Point * e: Point
-    
 module Processor =
     let Middle  = Point
     let Start   = Point
     let End     = Point
 
     let parser = new ParserBuilder()
+    
+    let validateShape (s: BPMN.Shape) = 
+       if isNull s.ElementRef then
+           Error (ShapeElementRefNull s.ID)
+       else if isNull s.Bounds then
+           Error (ShapePointsNull s.ID)
+       else if s.Bounds.Count <> 1 then
+           Ok ((s.ElementRef, Seq.head s.Bounds), [ShapeBoundsCountNotEqualOne s.ID])
+       else Ok ((s.ElementRef, Seq.head s.Bounds), [])
+
+    let validateEdge (e: BPMN.Edge) = 
+        if isNull e.ElementRef then
+            Error (ShapeElementRefNull e.ID)
+        else if isNull e.Points then
+            Error (ShapePointsNull e.ID)
+        else if e.Points.Count < 2 then
+            Error (ShapePointsCountLessThanOne e.ID)
+        else Ok (e, [])
 
     // we are interested not in the ID of the edge (which is of form "<...>_di"
     // but in the <...> part which is saved in e.ElementRef which is the id of the BPMN element
@@ -50,9 +41,9 @@ module Processor =
                 |> Seq.collect(fun e -> e.Planes) 
                 |> Seq.collect(fun e -> e.Edges) do 
                 yield!
-                    parser.ValidateEdge e
+                    validateEdge e
                         |> Result.map(fun (e, warns) -> (e.ElementRef, Seq.head e.Points, Seq.last e.Points, warns))
-                        |> Result.map(fun (elementRef, s, e, warns) -> (Edge (elementRef, Start (s.X, s.Y), End (e.X, e.Y)), warns))
+                        |> Result.map(fun (elementRef, s, e, warns) -> (DiagramEdge (elementRef, Start (s.X, s.Y), End (e.X, e.Y)), warns))
         }
     let getShapes (model: BPMN.Model) = 
         parser {
@@ -60,33 +51,34 @@ module Processor =
                 |> Seq.collect(fun e -> e.Planes)
                 |> Seq.collect(fun e -> e.Shapes) do 
                 yield!
-                    parser.ValidateShape s
+                    validateShape s
                         |> Result.map(fun ((elementRef, rectangle), warns) -> 
                             ((elementRef, rectangle.Left + rectangle.Width/2, rectangle.Top + rectangle.Height/2), warns))
                         |> Result.map(fun ((elementRef, X, Y), warns) -> 
-                                (Shape (elementRef, Middle (X, Y)), warns))
+                                (DiagramShape (elementRef, Middle (X, Y)), warns))
         }
 
     let parse (model: BPMN.Model) = 
         let tryElements = parser {
             for e in (getShapes model) do 
                 yield!
-                    e |> Result.bind(fun(Shape (id, middle), warns) ->
+                    e |> Result.bind(fun(DiagramShape (id, middle), warns) ->
                         let el = model.ElementByID(id)
                         if isNull el then
                             Error (ElementNotFound id)
                         else
                             Ok ((el, middle), warns))
-                    |> Result.map(fun ((el, middle), warns) -> 
+                    |> Result.bind(fun ((el, middle), warns) -> 
                         match el.TypeName with
-                            | "exclusiveGateway" -> ((el.ID, BPMNElement (ExclusiveGateway, el.ID, Some el.ParentID, middle)), warns)
-                            | "parallelGateway" -> ((el.ID, BPMNElement (ParallelGateway, el.ID, Some el.ParentID, middle)), warns)
-                            | "task" -> ((el.ID, BPMNElement (Activity, el.ID, Some el.ParentID, middle)), warns)
-                            | "startEvent" -> ((el.ID, BPMNElement (StartEvent, el.ID, Some el.ParentID, middle)), warns)
-                            | "endEvent" -> ((el.ID, BPMNElement (EndEvent, el.ID, Some el.ParentID, middle)), warns)
-                            | "boundaryEvent" -> ((el.ID, BPMNElement (BoundaryEvent el.Attributes.["attachedToRef"], el.ID, Some el.ParentID, middle)), warns)
-                            | "intermediateThrowEvent" -> ((el.ID, BPMNElement (IntermediateEvent, el.ID, Some el.ParentID, middle)), warns)
-                            | _ -> ((el.ID, BPMNElement (GenericNode el.TypeName, el.ID, Some el.ParentID, middle)), CastingToGenericNode (el.ID, el.TypeName) :: warns))
+                            | "exclusiveGateway" -> Ok ((el.ID, ExclusiveGateway (el.ID, Some el.ParentID, middle)), warns)
+                            | "parallelGateway" -> Ok ((el.ID, ParallelGateway (el.ID, Some el.ParentID, middle)), warns)
+                            | "task" -> Ok ((el.ID, Activity (el.ID, Some el.ParentID, middle)), warns)
+                            | "startEvent" -> Ok ((el.ID, StartEvent (el.ID, Some el.ParentID, middle)), warns)
+                            | "endEvent" -> Ok ((el.ID, EndEvent(el.ID, Some el.ParentID, middle)), warns)
+                            | "boundaryEvent" -> Ok ((el.ID, BoundaryEvent(el.ID, Some el.ParentID, middle, el.Attributes.["attachedToRef"])), warns)
+                            | "intermediateThrowEvent" -> Ok ((el.ID, IntermediateEvent (el.ID, Some el.ParentID, middle)), warns)
+                            | "participant" -> Ok ((el.ID, Participant (el.ID, Some el.ParentID, middle)), warns)
+                            | _ -> Error (UnknownNodeType el.TypeName))
         }
 
         let (parsedElements, elementsErrors, elementsWarnings) =
@@ -98,23 +90,23 @@ module Processor =
             parsedElements 
                 |> Seq.map(snd)
                 |> Seq.map(function
-                    | BPMNElement (BoundaryEvent eventAttachedTo, eventId, eventParent, eventMiddle) ->
+                    | BoundaryEvent (eventId, eventParent, eventMiddle, eventAttachedTo) ->
                         Some $ match elements.TryFind(eventAttachedTo) with
-                        | Some (BPMNElement (Activity, taskId, taskParent, taskMiddle)) -> 
+                        | Some (Activity (taskId, taskParent, taskMiddle)) -> 
                             Ok ((BPMNFlow (
                                     Boundary,
-                                    BPMNElement (Activity, taskId, taskParent, taskMiddle),
-                                    BPMNElement (BoundaryEvent eventAttachedTo, eventId, eventParent, eventMiddle),
+                                    Activity (taskId, taskParent, taskMiddle),
+                                    BoundaryEvent (eventId, eventParent, eventMiddle, eventAttachedTo),
                                     taskId + "_" + eventId,
                                     taskMiddle,
                                     eventMiddle), []))
-                        | Some (BPMNElement (elementType, elementId, elementParent, elementMiddle)) -> Ok((BPMNFlow (
+                        | Some (_x) -> Ok((BPMNFlow (
                                     Boundary,
-                                    BPMNElement (elementType, elementId, elementParent, elementMiddle),
-                                    BPMNElement (BoundaryEvent eventAttachedTo, eventId, eventParent, eventMiddle),
-                                    elementId + "_" + eventId,
-                                    elementMiddle,
-                                    eventMiddle), [AttachedToRefIsNotActivity (eventId, elementId)]))
+                                    _x,
+                                    BoundaryEvent (eventId, eventParent, eventMiddle, eventAttachedTo),
+                                    (getId _x) + "_" + eventId,
+                                    (getMiddle _x),
+                                    eventMiddle), [AttachedToRefIsNotActivity (eventId, (getId _x))]))
                         | None -> Error (AttachedToRefNotFound (eventAttachedTo, eventId))
                     | _ -> None)
                 |> Seq.choose id
@@ -125,7 +117,7 @@ module Processor =
         let edges = getSeqAndMesEdges model
         let tryFlows = 
             edges |> Seq.map (fun e -> 
-                e |> Result.bind (fun (Edge (elementRef, left, right), warns) ->
+                e |> Result.bind (fun (DiagramEdge (elementRef, left, right), warns) ->
                     let e = model.ElementByID(elementRef)
                     let source = e.Attributes.["sourceRef"]
                     let target = e.Attributes.["targetRef"]

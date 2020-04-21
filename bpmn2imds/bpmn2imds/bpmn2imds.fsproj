@@ -8,7 +8,7 @@
     <Compile Include="ParserBuilder.fs" />
     <Compile Include="Utils.fs" />
     <Compile Include="Processor.fs" />
-    <Compile Include="Transformer.fs" />
+    <Compile Include="Validator.fs" />
   </ItemGroup>
 
   <ItemGroup>
