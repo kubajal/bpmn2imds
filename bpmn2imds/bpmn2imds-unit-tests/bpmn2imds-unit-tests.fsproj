@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -23,7 +23,8 @@
     <None Include="diagram.bpmn">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Compile Include="ValidationTests.fs" />
+    <Compile Include="NormalizerTests.fs" />
+    <Compile Include="ValidatorTests.fs" />
     <Compile Include="UtilsTests.fs" />
     <Compile Include="ParsingTests.fs" />
   </ItemGroup>

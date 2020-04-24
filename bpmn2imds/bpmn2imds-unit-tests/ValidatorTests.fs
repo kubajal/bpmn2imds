@@ -12,7 +12,7 @@ open NUnit.Framework
 open bpmn2imds
 open FsUnit
 
-module ValidationTests = 
+module ValidatorTests = 
 
     [<TestFixture>]
     type unit_tests () =

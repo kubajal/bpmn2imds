@@ -32,10 +32,10 @@ type ParsingError =
     | UnknownNodeType of nodeType: string
 
 type Node = 
-    | XOR of id: string * middle: Point * parent: string
-    | AND of id: string * middle: Point * parent: string
-    | Start of id: string * middle: Point * parent: string
-    | End of id: string * middle: Point * parent: string
+    | XOR of id: string * parent: string option * middle: Point
+    | AND of id: string * parent: string option * middle: Point
+    | Start of id: string * parent: string option * middle: Point
+    | End of id: string * parent: string option * middle: Point
 
 type FlowSupplement =
     | Sequence of source : string * target: string * id: string * left: Point * right: Point
