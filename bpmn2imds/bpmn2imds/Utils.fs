@@ -21,7 +21,6 @@ type ParsingWarning =
     | CastingToGenericNode of elementId: string * elementType: string
     | ShapeBoundsCountNotEqualOne of elementId: string
     | AttachedToRefIsNotActivity of boundaryEventId: string * attachedToRef: string
-    | ValidationWarning of nodeId: string * rule: ValidationRule
 
 type ParsingError =
     | ShapeElementRefNull of elementId: string
@@ -31,7 +30,6 @@ type ParsingError =
     | UknownFlowType of unknownFlowType: string
     | AttachedToRefNotFound of attachedToRef: string * eventId: string
     | UnknownNodeType of nodeType: string
-    | ValidationError of nodeId: string * rule: ValidationRule
 
 type Node = 
     | XOR of id: string * middle: Point * parent: string
@@ -123,3 +121,21 @@ module Utils =
         | EndEvent (id, parentId, middle: Point) -> middle
         | IntermediateEvent (id, parentId, middle: Point) -> middle
         | BoundaryEvent  (id, parentId, middle: Point, eventAttachedTo) -> middle
+        
+    let validateShape (s: BPMN.Shape) = 
+        if isNull s.ElementRef then
+            Error (ShapeElementRefNull s.ID)
+        else if isNull s.Bounds then
+            Error (ShapePointsNull s.ID)
+        else if s.Bounds.Count <> 1 then
+            Ok ((s.ElementRef, Seq.head s.Bounds), [ShapeBoundsCountNotEqualOne s.ID])
+        else Ok ((s.ElementRef, Seq.head s.Bounds), [])
+
+    let validateEdge (e: BPMN.Edge) = 
+        if isNull e.ElementRef then
+            Error (ShapeElementRefNull e.ID)
+        else if isNull e.Points then
+            Error (ShapePointsNull e.ID)
+        else if e.Points.Count < 2 then
+            Error (ShapePointsCountLessThanOne e.ID)
+        else Ok (e, [])

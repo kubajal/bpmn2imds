@@ -23,7 +23,7 @@ module ValidationTests =
             let (errors, warnings) = Validator.validate(el, [], [], [], [])
             Seq.length errors |> should equal 0
             Seq.length warnings |> should equal 1
-            let (ValidationWarning (id, rule)) = Seq.head warnings
+            let (id, rule) = Seq.head warnings
             id |> should equal "id"
             rule |> should equal (MinimumIncomingSequenceFlows 1)
         
@@ -34,7 +34,7 @@ module ValidationTests =
             let seq = [BPMNFlow (Sequence, el, dummy, "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, [], seq, [], [])
             Seq.length errors |> should equal 1
-            errors |> should contain (ValidationError ("id", MaximumOutgoingSequenceFlows 0))
+            errors |> should contain ("id", MaximumOutgoingSequenceFlows 0)
             
         [<Test>]
         member this.EndEventWithIncomingMessageFlowShouldBeError() =
@@ -43,7 +43,7 @@ module ValidationTests =
             let mes = [BPMNFlow (Message, el, dummy, "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, [], [], mes, [])
             Seq.length errors |> should equal 1
-            errors |> should contain (ValidationError ("id", MaximumIncomingMessageFlows 0))
+            errors |> should contain ("id", MaximumIncomingMessageFlows 0)
         
         [<Test>]
         member this.EndEventWithOutgoingMessageFlowsShouldBeOks() =
@@ -59,7 +59,7 @@ module ValidationTests =
             let (errors, warnings) = Validator.validate(el, [], [], [], [])
             Seq.length errors |> should equal 0
             Seq.length warnings |> should equal 1
-            let (ValidationWarning (id, rule)) = Seq.head warnings
+            let (id, rule) = Seq.head warnings
             id |> should equal "id"
             rule |> should equal (MinimumOutgoingSequenceFlows 1)
 
@@ -71,7 +71,7 @@ module ValidationTests =
             let (errors, warnings) = Validator.validate(el, seq, [], [], [])
             Seq.length errors |> should equal 1
             Seq.length warnings |> should equal 1
-            let (ValidationError (id, rule)) = Seq.head errors
+            let (id, rule) = Seq.head errors
             id |> should equal "id"
             rule |> should equal (MaximumIncomingSequenceFlows 0)
 
@@ -93,7 +93,7 @@ module ValidationTests =
                 BPMNFlow (Message, el, dummy, "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, [], [], mes, [])
             Seq.length errors |> should equal 1
-            let (ValidationError (id, rule)) = Seq.head errors
+            let (id, rule) = Seq.head errors
             id |> should equal "id"
             rule |> should equal (MaximumIncomingMessageFlows 1)
 
@@ -103,8 +103,8 @@ module ValidationTests =
             let el = ExclusiveGateway ("id", Some "parentId", Point (1,2))
             let (errors, warnings) = Validator.validate(el, [], [], [], [])
             Seq.length warnings |> should equal 2
-            warnings |> should contain (ValidationWarning ("id", MinimumOutgoingSequenceFlows 1))
-            warnings |> should contain (ValidationWarning ("id", MinimumIncomingSequenceFlows 1))
+            warnings |> should contain ("id", MinimumOutgoingSequenceFlows 1)
+            warnings |> should contain ("id", MinimumIncomingSequenceFlows 1)
 
         [<Test>]
         member this.ExclusiveGatewayWithIncomingMessageFlowShouldBeError() =
@@ -113,7 +113,7 @@ module ValidationTests =
             let mes = [BPMNFlow (Message, el, dummy, "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, [], [], mes, [])
             Seq.length errors |> should equal 1
-            errors |> should contain (ValidationError ("id", MaximumIncomingMessageFlows 0))
+            errors |> should contain ("id", MaximumIncomingMessageFlows 0)
         
         [<Test>]
         member this.ExclusiveGatewayWithoutgoingMessageFlowShouldBeError() =
@@ -122,14 +122,14 @@ module ValidationTests =
             let mes = [BPMNFlow (Message, el, dummy, "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, [], [], [], mes)
             Seq.length errors |> should equal 1
-            errors |> should contain (ValidationError ("id", MaximumOutgoingMessageFlows 0))
+            errors |> should contain ("id", MaximumOutgoingMessageFlows 0)
         
         [<Test>]
         member this.ActivityWithoutOutgoingSequenceFlowShouldBeWarn() =
             let el = Activity ("id", Some "parentId", Point (1,2))
             let (errors, warnings) = Validator.validate(el, [], [], [], [])
             Seq.length warnings |> should equal 2
-            warnings |> should contain (ValidationWarning ("id", MinimumOutgoingSequenceFlows 1))
+            warnings |> should contain ("id", MinimumOutgoingSequenceFlows 1)
         
         [<Test>]
         member this.ActivityWithFlowShoudBeOk() =
@@ -146,21 +146,21 @@ module ValidationTests =
             let el = Activity ("id", Some "parentId", Point (1,2))
             let (errors, warnings) = Validator.validate(el, [], [], [], [])
             Seq.length warnings |> should equal 2
-            warnings |> should contain (ValidationWarning ("id", MinimumIncomingSequenceFlows 1))
+            warnings |> should contain ("id", MinimumIncomingSequenceFlows 1)
         
         [<Test>]
         member this.ParallelGatewayWithoutOutgoingSequenceFlowShouldBeWarn() =
             let el = ParallelGateway ("id", Some "parentId", Point (1,2))
             let (errors, warnings) = Validator.validate(el, [], [], [], [])
             Seq.length warnings |> should equal 2
-            warnings |> should contain (ValidationWarning ("id", MinimumOutgoingSequenceFlows 1))
+            warnings |> should contain ("id", MinimumOutgoingSequenceFlows 1)
         
         [<Test>]
         member this.ParallelGatewayWithoutIncomingSequenceFlowShouldBeWarn() =
             let el = ParallelGateway ("id", Some "parentId", Point (1,2))
             let (errors, warnings) = Validator.validate(el, [], [], [], [])
             Seq.length warnings |> should equal 2
-            warnings |> should contain (ValidationWarning ("id", MinimumIncomingSequenceFlows 1))
+            warnings |> should contain ("id", MinimumIncomingSequenceFlows 1)
 
         [<Test>]
         member this.ParallelGatewayWithOutgoingMessageFlowShouldBeError() =
@@ -169,7 +169,7 @@ module ValidationTests =
             let mes = [BPMNFlow (Message, el, dummy, "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, [], [], [], mes)
             Seq.length errors |> should equal 1
-            errors |> should contain (ValidationError ("id", MaximumOutgoingMessageFlows 0))
+            errors |> should contain ("id", MaximumOutgoingMessageFlows 0)
         
         [<Test>]
         member this.ParallelGatewayWithoutIncomingMessageFlowShouldBeError() =
@@ -178,7 +178,7 @@ module ValidationTests =
             let mes = [BPMNFlow (Message, el, dummy, "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, [], [], mes, [])
             Seq.length errors |> should equal 1
-            errors |> should contain (ValidationError ("id", MaximumIncomingMessageFlows 0))
+            errors |> should contain ("id", MaximumIncomingMessageFlows 0)
 
         [<Test>]
         member this.BoundaryEventWithoutIncomingMessageFlowShouldBeError() =
@@ -187,4 +187,4 @@ module ValidationTests =
             let mes = [BPMNFlow (Message, el, dummy, "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, [], [], mes, [])
             Seq.length errors |> should equal 1
-            errors |> should contain (ValidationError ("id", MaximumIncomingMessageFlows 0))
+            errors |> should contain ("id", MaximumIncomingMessageFlows 0)

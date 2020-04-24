@@ -13,24 +13,6 @@ module Processor =
     let End     = Point
 
     let parser = new ParserBuilder()
-    
-    let validateShape (s: BPMN.Shape) = 
-       if isNull s.ElementRef then
-           Error (ShapeElementRefNull s.ID)
-       else if isNull s.Bounds then
-           Error (ShapePointsNull s.ID)
-       else if s.Bounds.Count <> 1 then
-           Ok ((s.ElementRef, Seq.head s.Bounds), [ShapeBoundsCountNotEqualOne s.ID])
-       else Ok ((s.ElementRef, Seq.head s.Bounds), [])
-
-    let validateEdge (e: BPMN.Edge) = 
-        if isNull e.ElementRef then
-            Error (ShapeElementRefNull e.ID)
-        else if isNull e.Points then
-            Error (ShapePointsNull e.ID)
-        else if e.Points.Count < 2 then
-            Error (ShapePointsCountLessThanOne e.ID)
-        else Ok (e, [])
 
     // we are interested not in the ID of the edge (which is of form "<...>_di"
     // but in the <...> part which is saved in e.ElementRef which is the id of the BPMN element

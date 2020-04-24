@@ -11,92 +11,48 @@ module Validator =
     let splitResults rs =
         List.fold split ([], []) rs
 
-    let checkError (rule, id, incSeq, outSeq, incMes, outMes) =
+    let checkRule (rule, id, incSeq, outSeq, incMes, outMes) =
         match rule with 
         | MaximumIncomingSequenceFlows n -> 
             if Seq.length incSeq > n then
-                Error (ValidationError (id, rule))
+                Error (id, rule)
             else 
                 Ok id
         | MaximumOutgoingSequenceFlows n -> 
             if Seq.length outSeq > n then
-                Error (ValidationError (id, rule))
+                Error (id, rule)
             else 
                 Ok id
         | MaximumOutgoingMessageFlows n -> 
             if Seq.length outMes > n then
-                Error (ValidationError (id, rule))
+                Error (id, rule)
             else 
                 Ok id
         | MaximumIncomingMessageFlows n -> 
             if Seq.length incMes > n then
-                Error (ValidationError (id, rule))
+                Error (id, rule)
             else 
                 Ok id
         | MinimumIncomingMessageFlows n ->
             if Seq.length incMes < n then
-                Error (ValidationError (id, rule))
+                Error (id, rule)
             else 
                 Ok id
         | MinimumIncomingSequenceFlows n->
             if Seq.length incSeq < n then
-                Error (ValidationError (id, rule))
+                Error (id, rule)
             else 
                 Ok id
         | MinimumOutgoingMessageFlows n->
             if Seq.length outMes < n then
-                Error (ValidationError (id, rule))
+                Error (id, rule)
             else 
                 Ok id
         | MinimumOutgoingSequenceFlows n ->
             if Seq.length outSeq < n then
-                Error (ValidationError (id, rule))
+                Error (id, rule)
             else 
                 Ok id
-        
-    let checkWarning (rule, id, incSeq, outSeq, incMes, outMes) =
-        match rule with 
-        | MaximumIncomingSequenceFlows n -> 
-            if Seq.length incSeq > n then
-                Error (ValidationWarning (id, rule))
-            else 
-                Ok id
-        | MaximumOutgoingSequenceFlows n -> 
-            if Seq.length outSeq > n then
-                Error (ValidationWarning (id, rule))
-            else 
-                Ok id
-        | MaximumOutgoingMessageFlows n -> 
-            if Seq.length outMes > n then
-                Error (ValidationWarning (id, rule))
-            else 
-                Ok id
-        | MaximumIncomingMessageFlows n -> 
-            if Seq.length incMes > n then
-                Error (ValidationWarning (id, rule))
-            else 
-                Ok id
-        | MinimumIncomingMessageFlows n ->
-            if Seq.length incMes < n then
-                Error (ValidationWarning (id, rule))
-            else 
-                Ok id
-        | MinimumIncomingSequenceFlows n ->
-            if Seq.length incSeq < n then
-                Error (ValidationWarning (id, rule))
-            else 
-                Ok id
-        | MinimumOutgoingMessageFlows n ->
-            if Seq.length outMes < n then
-                Error (ValidationWarning (id, rule))
-            else 
-                Ok id
-        | MinimumOutgoingSequenceFlows n ->
-            if Seq.length outSeq < n then
-                Error (ValidationWarning (id, rule))
-            else 
-                Ok id
-                
 
     let validate (
         element: BPMNElement,
@@ -136,7 +92,7 @@ module Validator =
                     MinimumIncomingSequenceFlows 1]);
         
         let (_, errors) = splitResults (cRules |> List.map(fun rule ->
-            checkError (rule, id, incSeq, outSeq, incMes, outMes)))
+            checkRule (rule, id, incSeq, outSeq, incMes, outMes)))
         let (_, warns) = splitResults (ncRules |> List.map(fun rule ->
-            checkWarning (rule, id, incSeq, outSeq, incMes, outMes)))
+            checkRule (rule, id, incSeq, outSeq, incMes, outMes)))
         (errors, warns)

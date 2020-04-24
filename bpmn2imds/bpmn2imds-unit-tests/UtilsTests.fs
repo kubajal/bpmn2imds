@@ -3,7 +3,7 @@ namespace bpmn2imds
 open NUnit.Framework
 open Utils
 
-module utils_unit_tests =
+module UtilsTests =
 
     [<TestFixture>]
     type bpmn2imds_utils_tests () =
