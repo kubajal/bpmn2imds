@@ -77,15 +77,15 @@ module Processor =
                         | Some (Activity (taskId, taskParent, taskMiddle)) -> 
                             Ok ((BPMNFlow (
                                     Boundary,
-                                    Activity (taskId, taskParent, taskMiddle),
-                                    BoundaryEvent (eventId, eventParent, eventMiddle, eventAttachedTo),
+                                    taskId,
+                                    eventId,
                                     taskId + "_" + eventId,
                                     taskMiddle,
                                     eventMiddle), []))
                         | Some (_x) -> Ok((BPMNFlow (
                                     Boundary,
-                                    _x,
-                                    BoundaryEvent (eventId, eventParent, eventMiddle, eventAttachedTo),
+                                    getId _x,
+                                    eventId,
                                     (getId _x) + "_" + eventId,
                                     (getMiddle _x),
                                     eventMiddle), [AttachedToRefIsNotActivity (eventId, (getId _x))]))
@@ -104,8 +104,8 @@ module Processor =
                     let source = e.Attributes.["sourceRef"]
                     let target = e.Attributes.["targetRef"]
                     match e.TypeName with
-                    | "sequenceFlow" -> Ok $ (BPMNFlow (Sequence, elements.Item(source), elements.Item(target), e.ID, left, right), [])
-                    | "messageFlow" -> Ok $ (BPMNFlow (Message, elements.Item(source), elements.Item(target), e.ID, left, right), [])
+                    | "sequenceFlow" -> Ok $ (BPMNFlow (Sequence, getId (elements.Item(source)), getId (elements.Item(target)), e.ID, left, right), [])
+                    | "messageFlow" -> Ok $ (BPMNFlow (Message, getId (elements.Item(source)), getId (elements.Item(target)), e.ID, left, right), [])
                     | unknownType -> Error (UknownFlowType unknownType)))
 
         let (seqOrMesFlows, seqOrMesFlowsError, seqOrMesFlowsWarns) = 

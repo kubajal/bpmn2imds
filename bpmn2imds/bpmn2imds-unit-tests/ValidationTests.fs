@@ -30,8 +30,7 @@ module ValidationTests =
         [<Test>]
         member this.EndEventWithOutgoingSequenceFlowShouldBeError() =
             let el = EndEvent ("id", Some "parentId", Point (1,2))
-            let dummy = Activity ("dummy", Some "parentId", Point (1,2))
-            let seq = [BPMNFlow (Sequence, el, dummy, "flow", Point (1, 1), Point (1, 1))]
+            let seq = [BPMNFlow (Sequence, "id", "dummy", "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, [], seq, [], [])
             Seq.length errors |> should equal 1
             errors |> should contain ("id", MaximumOutgoingSequenceFlows 0)
@@ -39,8 +38,7 @@ module ValidationTests =
         [<Test>]
         member this.EndEventWithIncomingMessageFlowShouldBeError() =
             let el = EndEvent ("id", Some "parentId", Point (1,2))
-            let dummy = Activity ("dummy", Some "parentId", Point (1,2))
-            let mes = [BPMNFlow (Message, el, dummy, "flow", Point (1, 1), Point (1, 1))]
+            let mes = [BPMNFlow (Message, "id", "dummy", "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, [], [], mes, [])
             Seq.length errors |> should equal 1
             errors |> should contain ("id", MaximumIncomingMessageFlows 0)
@@ -48,8 +46,7 @@ module ValidationTests =
         [<Test>]
         member this.EndEventWithOutgoingMessageFlowsShouldBeOks() =
             let el = EndEvent ("id", Some "parentId", Point (1,2))
-            let dummy = Activity ("dummy", Some "parentId", Point (1,2))
-            let mes = [BPMNFlow (Message, el, dummy, "flow", Point (1, 1), Point (1, 1))]
+            let mes = [BPMNFlow (Message, "id", "dummy", "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, [], [], [], mes)
             Seq.length errors |> should equal 0
 
@@ -66,8 +63,7 @@ module ValidationTests =
         [<Test>]
         member this.StartEventWithIncomingSequenceFlowShouldBeError() =
             let el = StartEvent ("id", Some "parentId", Point (1,2))
-            let dummy = Activity ("dummy", Some "parentId", Point (1,2))
-            let seq = [BPMNFlow (Sequence, el, dummy, "flow", Point (1, 1), Point (1, 1))]
+            let seq = [BPMNFlow (Sequence, "id", "dummy", "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, seq, [], [], [])
             Seq.length errors |> should equal 1
             Seq.length warnings |> should equal 1
@@ -78,8 +74,7 @@ module ValidationTests =
         [<Test>]
         member this.StartEventWithIncomingMessageFlowShouldBeOk() =
             let el = StartEvent ("id", Some "parentId", Point (1,2))
-            let dummy = Activity ("dummy", Some "parentId", Point (1,2))
-            let mes = [BPMNFlow (Message, el, dummy, "flow", Point (1, 1), Point (1, 1))]
+            let mes = [BPMNFlow (Message, "id", "dummy", "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, [], [], mes, [])
             Seq.length errors |> should equal 0
             Seq.length warnings |> should equal 1
@@ -87,10 +82,9 @@ module ValidationTests =
         [<Test>]
         member this.StartEventWithTwoIncomingMessageFlowsShouldBeError() =
             let el = StartEvent ("id", Some "parentId", Point (1,2))
-            let dummy = Activity ("dummy", Some "parentId", Point (1,2))
             let mes = [
-                BPMNFlow (Message, el, dummy, "flow", Point (1, 1), Point (1, 1));
-                BPMNFlow (Message, el, dummy, "flow", Point (1, 1), Point (1, 1))]
+                BPMNFlow (Message, "id", "dummy", "flow", Point (1, 1), Point (1, 1));
+                BPMNFlow (Message, "id", "dummy", "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, [], [], mes, [])
             Seq.length errors |> should equal 1
             let (id, rule) = Seq.head errors
@@ -109,8 +103,7 @@ module ValidationTests =
         [<Test>]
         member this.ExclusiveGatewayWithIncomingMessageFlowShouldBeError() =
             let el = ExclusiveGateway ("id", Some "parentId", Point (1,2))
-            let dummy = Activity ("dummy", Some "parentId", Point (1,2))
-            let mes = [BPMNFlow (Message, el, dummy, "flow", Point (1, 1), Point (1, 1))]
+            let mes = [BPMNFlow (Message, "id", "dummy", "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, [], [], mes, [])
             Seq.length errors |> should equal 1
             errors |> should contain ("id", MaximumIncomingMessageFlows 0)
@@ -118,8 +111,7 @@ module ValidationTests =
         [<Test>]
         member this.ExclusiveGatewayWithoutgoingMessageFlowShouldBeError() =
             let el = ExclusiveGateway ("id", Some "parentId", Point (1,2))
-            let dummy = Activity ("dummy", Some "parentId", Point (1,2))
-            let mes = [BPMNFlow (Message, el, dummy, "flow", Point (1, 1), Point (1, 1))]
+            let mes = [BPMNFlow (Message, "id", "dummy", "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, [], [], [], mes)
             Seq.length errors |> should equal 1
             errors |> should contain ("id", MaximumOutgoingMessageFlows 0)
@@ -134,9 +126,8 @@ module ValidationTests =
         [<Test>]
         member this.ActivityWithFlowShoudBeOk() =
             let el = Activity ("id", Some "parentId", Point (1,2))
-            let dummy = Activity ("dummy", Some "parentId", Point (1,2))
-            let mes = [BPMNFlow (Message, el, dummy, "flow", Point (1, 1), Point (1, 1))]
-            let seq = [BPMNFlow (Sequence, el, dummy, "flow", Point (1, 1), Point (1, 1))]
+            let mes = [BPMNFlow (Message, "id", "dummy", "flow", Point (1, 1), Point (1, 1))]
+            let seq = [BPMNFlow (Sequence, "id", "dummy", "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, seq, seq, mes, mes)
             Seq.length warnings |> should equal 0
             Seq.length errors |> should equal 0
@@ -165,8 +156,7 @@ module ValidationTests =
         [<Test>]
         member this.ParallelGatewayWithOutgoingMessageFlowShouldBeError() =
             let el = ParallelGateway ("id", Some "parentId", Point (1,2))
-            let dummy = Activity ("dummy", Some "parentId", Point (1,2))
-            let mes = [BPMNFlow (Message, el, dummy, "flow", Point (1, 1), Point (1, 1))]
+            let mes = [BPMNFlow (Message, "id", "dummy", "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, [], [], [], mes)
             Seq.length errors |> should equal 1
             errors |> should contain ("id", MaximumOutgoingMessageFlows 0)
@@ -174,8 +164,7 @@ module ValidationTests =
         [<Test>]
         member this.ParallelGatewayWithoutIncomingMessageFlowShouldBeError() =
             let el = ParallelGateway ("id", Some "parentId", Point (1,2))
-            let dummy = Activity ("dummy", Some "parentId", Point (1,2))
-            let mes = [BPMNFlow (Message, el, dummy, "flow", Point (1, 1), Point (1, 1))]
+            let mes = [BPMNFlow (Message, "id", "dummy", "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, [], [], mes, [])
             Seq.length errors |> should equal 1
             errors |> should contain ("id", MaximumIncomingMessageFlows 0)
@@ -183,8 +172,7 @@ module ValidationTests =
         [<Test>]
         member this.BoundaryEventWithoutIncomingMessageFlowShouldBeError() =
             let el = BoundaryEvent ("id", Some "parentId", Point (1,2), "id")
-            let dummy = Activity ("dummy", Some "parentId", Point (1,2))
-            let mes = [BPMNFlow (Message, el, dummy, "flow", Point (1, 1), Point (1, 1))]
+            let mes = [BPMNFlow (Message, "id", "dummy", "flow", Point (1, 1), Point (1, 1))]
             let (errors, warnings) = Validator.validate(el, [], [], mes, [])
             Seq.length errors |> should equal 1
             errors |> should contain ("id", MaximumIncomingMessageFlows 0)

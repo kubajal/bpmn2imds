@@ -73,7 +73,7 @@ type FlowType =
     
 type Flow = Flow of flowType: FlowType * source: Node * target: Node * id: string * left: Point * right: Point
     
-type BPMNFlow = BPMNFlow of flowType: FlowType * source: BPMNElement * target: BPMNElement * id: string * left: Point * right: Point
+type BPMNFlow = BPMNFlow of flowType: FlowType * source: string * target: string * id: string * left: Point * right: Point
 
 type DiagramShape = DiagramShape of elementRef: string * m: Point
 type DiagramEdge = DiagramEdge of elementRef: string * s: Point * e: Point

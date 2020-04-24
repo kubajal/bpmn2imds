@@ -59,21 +59,21 @@ module ParsingTests =
             
         [<Test>]
         member this.SequenceFlowsShouldBeParsedCorrectly() =
-            flows |> should contain (BPMNFlow (Sequence, StartEvent ("StartEvent_1rylu38", Some "Process_1dsnu7p",Point (230,140)), Activity ("Activity_0vx2uea", Some "Process_1dsnu7p",Point (330,140)),"Flow_108gfjk", Point (248,140),Point (280,140)))
-            flows |> should contain (BPMNFlow (Sequence, Activity ("Activity_0vx2uea", Some "Process_1dsnu7p",Point (330,140)), EndEvent ("Event_0ylxgrh", Some "Process_1dsnu7p",Point (430,140)),"Flow_0levmfs", Point (380,140),Point (412,140)))
-            flows |> should contain (BPMNFlow (Sequence, StartEvent ("Event_02rpjh7", Some "Process_16buli2",Point (230,300)), Activity ("Activity_1en9m0o", Some "Process_16buli2",Point (320,300)),"Flow_0n1pvzm", Point (248,300),Point (270,300)))
-            flows |> should contain (BPMNFlow (Sequence, Activity ("Activity_1en9m0o", Some "Process_16buli2",Point (320,300)), IntermediateEvent ("Event_19y1pjy", Some "Process_16buli2",Point (410,300)), "Flow_04zxtx8",Point (370,300),Point (392,300)))
-            flows |> should contain (BPMNFlow (Sequence, BoundaryEvent ("Event_11maord", Some "Process_16buli2", Point (320,340), "Activity_1en9m0o"), EndEvent ("Event_1onr7og", Some "Process_16buli2",Point (410,420)),"Flow_1up2kuu", Point (320,358),Point (392,420)))
-            flows |> should contain (BPMNFlow (Sequence, IntermediateEvent ("Event_19y1pjy", Some "Process_16buli2",Point (410,300)), EndEvent ("Event_10qvi3n", Some "Process_16buli2",Point (510,300)),"Flow_0hd9q6u", Point (428,300),Point (492,300)))
+            flows |> should contain (BPMNFlow (Sequence, "StartEvent_1rylu38", "Activity_0vx2uea", "Flow_108gfjk", Point (248,140),Point (280,140)))
+            flows |> should contain (BPMNFlow (Sequence, "Activity_0vx2uea", "Event_0ylxgrh", "Flow_0levmfs", Point (380,140),Point (412,140)))
+            flows |> should contain (BPMNFlow (Sequence, "Event_02rpjh7", "Activity_1en9m0o", "Flow_0n1pvzm", Point (248,300),Point (270,300)))
+            flows |> should contain (BPMNFlow (Sequence, "Activity_1en9m0o", "Event_19y1pjy", "Flow_04zxtx8",Point (370,300),Point (392,300)))
+            flows |> should contain (BPMNFlow (Sequence, "Event_11maord", "Event_1onr7og", "Flow_1up2kuu", Point (320,358),Point (392,420)))
+            flows |> should contain (BPMNFlow (Sequence, "Event_19y1pjy", "Event_10qvi3n","Flow_0hd9q6u", Point (428,300),Point (492,300)))
         
         [<Test>]
         member this.MessageFlowsShouldBeParsedCorrectly() =
-            flows |> should contain (BPMNFlow (Message, Activity ("Activity_0vx2uea", Some "Process_1dsnu7p",Point (330,140)), Activity ("Activity_1en9m0o", Some "Process_16buli2",Point (320,300)), "MessageFlow_09q63um",Point (330,180),Point (330,260)))
-            flows |> should contain (BPMNFlow (Message, IntermediateEvent ("Event_19y1pjy", Some "Process_16buli2",Point (410,300)), Activity ("Activity_0vx2uea", Some "Process_1dsnu7p",Point (330,140)), "MessageFlow_0e15urb",Point (410,282),Point (350,180)))
+            flows |> should contain (BPMNFlow (Message, "Activity_0vx2uea", "Activity_1en9m0o", "MessageFlow_09q63um",Point (330,180),Point (330,260)))
+            flows |> should contain (BPMNFlow (Message, "Event_19y1pjy", "Activity_0vx2uea", "MessageFlow_0e15urb",Point (410,282),Point (350,180)))
             
         [<Test>]
         member this.BoundaryFlowsShouldBeParsedCorrectly() =
-            flows |> should contain (BPMNFlow (Boundary, Activity ("Activity_1en9m0o", Some "Process_16buli2",Point (320,300)), BoundaryEvent ("Event_11maord", Some "Process_16buli2", Point (320,340), "Activity_1en9m0o"), "Activity_1en9m0o_Event_11maord",Point (320,300),Point (320,340)))
+            flows |> should contain (BPMNFlow (Boundary, "Activity_1en9m0o", "Event_11maord", "Activity_1en9m0o_Event_11maord",Point (320,300),Point (320,340)))
                     
         [<Test>]
         member this.NumberOfParsedFlowsShouldBeCorrect() =
