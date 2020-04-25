@@ -131,9 +131,11 @@ module NormalizerTests =
             let el = ExclusiveGateway ("id", Some "parentId", Point (1,2))
             let seq = BPMNFlow (Sequence, "dummy", "id", "flow", Point (1, 1), Point (1, 1))
             let (children, flows) = Normalizer.normalize(el, [seq], [], [], [])
-            Seq.length children |> should equal 1
-            Seq.length flows |> should equal 0
-            Seq.last children |> should equal (XOR ("id", "id", Point (1,2)))
+            Seq.length children |> should equal 2
+            Seq.length flows |> should equal 1
+            Seq.head children |> should equal (XOR ("id_xor", "id", Point (1,2)))
+            Seq.last children |> should equal (End ("id_end", "id", Point (1,2)))
+            Seq.head flows |> should equal (BPMNFlow (Link, "id_xor", "id_end", "id", Point (1,2), Point (1,2)))
         
         [<Test>]
         member this.ExclusiveGatewayWithTwoIncomingSequenceFlows() =
@@ -141,8 +143,11 @@ module NormalizerTests =
             let seq1 = BPMNFlow (Sequence, "dummy", "id", "flow1", Point (1, 1), Point (1, 1))
             let seq2 = BPMNFlow (Sequence, "dummy", "id", "flow2", Point (1, 1), Point (1, 1))
             let (children, flows) = Normalizer.normalize(el, [seq1; seq2], [], [], [])
-            Seq.length children |> should equal 1
-            Seq.last children |> should equal (XOR ("id", "id", Point (1,2)))
+            Seq.length children |> should equal 2
+            Seq.length flows |> should equal 1
+            Seq.head children |> should equal (XOR ("id_xor", "id", Point (1,2)))
+            Seq.last children |> should equal (End ("id_end", "id", Point (1,2)))
+            Seq.head flows |> should equal (BPMNFlow (Link, "id_xor", "id_end", "id", Point (1,2), Point (1,2)))
 
         [<Test>]
         member this.ExclusiveGatewayWithTwoIncomingSequenceFlowsAndOneOutgoingSequenceFlow() =
@@ -164,3 +169,16 @@ module NormalizerTests =
             let (children, flows) = Normalizer.normalize(el, [seq1; seq2], [seq3; seq4], [], [])
             Seq.length children |> should equal 1
             Seq.last children |> should equal (XOR ("id", "id", Point (1,2)))
+        
+        
+        [<Test>]
+        member this.ExclusiveGatewayWithTwoOutgoingSequenceFlows() =
+            let el = ExclusiveGateway ("id", Some "parentId", Point (1,2))
+            let seq3 = BPMNFlow (Sequence, "id", "dummy", "flow3", Point (1, 1), Point (1, 1))
+            let seq4 = BPMNFlow (Sequence, "id", "dummy", "flow4", Point (1, 1), Point (1, 1))
+            let (children, flows) = Normalizer.normalize(el, [], [seq3; seq4], [], [])
+            Seq.length children |> should equal 2
+            Seq.length flows |> should equal 1
+            Seq.head children |> should equal (Start ("id_start", "id", Point (1,2)))
+            Seq.last children |> should equal (XOR ("id_xor", "id", Point (1,2)))
+            Seq.head flows |> should equal (BPMNFlow (Link, "id_start", "id_xor", "id", Point (1,2), Point (1,2)))

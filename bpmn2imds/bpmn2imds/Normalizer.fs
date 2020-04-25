@@ -14,7 +14,18 @@ module Normalizer =
         | ParallelGateway (id, parent, middle) -> 
             ([AND (id, id, middle)], [])
         | ExclusiveGateway (id, parent, middle) -> 
-            ([XOR (id, id, middle)], [])
+            match (Seq.length incSeq, Seq.length outSeq) with
+            | (0, x) when x > 0 -> 
+                let start = Start(id+"_start", id, middle)
+                let xor = XOR (id+"_xor", id, middle)
+                let link = BPMNFlow (Link, id+"_start", id+"_xor", id, middle, middle)
+                ([start; xor], [link])
+            | (x, 0) when x > 0 -> 
+                let xor = XOR (id+"_xor", id, middle)
+                let e = End (id+"_end", id, middle)
+                let link = BPMNFlow (Link, id+"_xor", id+"_end", id, middle, middle)
+                ([xor; e], [link])
+            | (x, y) -> ([XOR (id, id, middle)], [])
         | BoundaryEvent (id, parent, middle, _) -> 
             match (Seq.length incSeq, Seq.length outSeq) with
             | (_, _) -> ([AND (id, id, middle)], [])
