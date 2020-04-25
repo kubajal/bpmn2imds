@@ -17,6 +17,8 @@ module ValidatorTests =
     [<TestFixture>]
     type unit_tests () =
 
+        // todo: BoundaryEvent / BoundaryFlow tests
+
         [<Test>]
         member this.EndEventWithoutFlowsShouldBeWarning() =
             let el = EndEvent ("id", Some "parentId", Point (1,2))
@@ -168,7 +170,7 @@ module ValidatorTests =
             let (errors, warnings) = Validator.validate(el, [], [], mes, [])
             Seq.length errors |> should equal 1
             errors |> should contain ("id", MaximumIncomingMessageFlows 0)
-
+            
         [<Test>]
         member this.BoundaryEventWithoutIncomingMessageFlowShouldBeError() =
             let el = BoundaryEvent ("id", Some "parentId", Point (1,2), "id")
@@ -176,3 +178,18 @@ module ValidatorTests =
             let (errors, warnings) = Validator.validate(el, [], [], mes, [])
             Seq.length errors |> should equal 1
             errors |> should contain ("id", MaximumIncomingMessageFlows 0)
+            
+        [<Test>]
+        member this.BoundaryEventWithoutOneOutgoingMessageFlowsShouldBeOk() =
+            let el = BoundaryEvent ("id", Some "parentId", Point (1,2), "id")
+            let mes1 = BPMNFlow (Message, "id", "dummy", "flow1", Point (1, 1), Point (1, 1))
+            let (errors, warnings) = Validator.validate(el, [], [], [], [mes1])
+            Seq.length errors |> should equal 0
+            Seq.length warnings |> should equal 0
+        
+        [<Test>]
+        member this.BoundaryEventWithOneIncomingSequenceFlowShouldBeOk() =
+            let el = BoundaryEvent ("id", Some "parentId", Point (1,2), "id")
+            let seq = BPMNFlow (Sequence, "id", "dummy", "flow1", Point (1, 1), Point (1, 1))
+            let (errors, warnings) = Validator.validate(el, [seq], [], [], [])
+            Seq.length errors |> should equal 0

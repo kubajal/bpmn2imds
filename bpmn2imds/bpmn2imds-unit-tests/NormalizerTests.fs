@@ -90,9 +90,11 @@ module NormalizerTests =
             let el = ParallelGateway ("id", Some "parentId", Point (1,2))
             let seq = BPMNFlow (Sequence, "dummy", "id", "flow", Point (1, 1), Point (1, 1))
             let (children, flows) = Normalizer.normalize(el, [seq], [], [], [])
-            Seq.length children |> should equal 1
-            Seq.length flows |> should equal 0
-            Seq.last children |> should equal (AND ("id", "id", Point (1,2)))
+            Seq.length children |> should equal 2
+            Seq.length flows |> should equal 1
+            Seq.head children |> should equal (AND ("id_and", "id", Point (1,2)))
+            Seq.last children |> should equal (End ("id_end", "id", Point (1,2)))
+            Seq.head flows |> should equal (BPMNFlow (Link, "id_and", "id_end", "id", Point (1,2), Point (1,2)))
         
         [<Test>]
         member this.ParallelGatewayWithTwoIncomingSequenceFlows() =
@@ -100,8 +102,11 @@ module NormalizerTests =
             let seq1 = BPMNFlow (Sequence, "dummy", "id", "flow1", Point (1, 1), Point (1, 1))
             let seq2 = BPMNFlow (Sequence, "dummy", "id", "flow2", Point (1, 1), Point (1, 1))
             let (children, flows) = Normalizer.normalize(el, [seq1; seq2], [], [], [])
-            Seq.length children |> should equal 1
-            Seq.last children |> should equal (AND ("id", "id", Point (1,2)))
+            Seq.length children |> should equal 2
+            Seq.length flows |> should equal 1
+            Seq.head children |> should equal (AND ("id_and", "id", Point (1,2)))
+            Seq.last children |> should equal (End ("id_end", "id", Point (1,2)))
+            Seq.head flows |> should equal (BPMNFlow (Link, "id_and", "id_end", "id", Point (1,2), Point (1,2)))
 
         [<Test>]
         member this.ParallelGatewayWithTwoIncomingSequenceFlowsAndOneOutgoingSequenceFlow() =
@@ -111,6 +116,7 @@ module NormalizerTests =
             let seq3 = BPMNFlow (Sequence, "id", "dummy", "flow3", Point (1, 1), Point (1, 1))
             let (children, flows) = Normalizer.normalize(el, [seq1; seq2], [seq3], [], [])
             Seq.length children |> should equal 1
+            Seq.length flows |> should equal 0
             Seq.last children |> should equal (AND ("id", "id", Point (1,2)))
         
         [<Test>]
@@ -122,10 +128,44 @@ module NormalizerTests =
             let seq4 = BPMNFlow (Sequence, "id", "dummy", "flow4", Point (1, 1), Point (1, 1))
             let (children, flows) = Normalizer.normalize(el, [seq1; seq2], [seq3; seq4], [], [])
             Seq.length children |> should equal 1
+            Seq.length flows |> should equal 0
             Seq.last children |> should equal (AND ("id", "id", Point (1,2)))
+        
+        [<Test>]
+        member this.ParallelGatewayWithOneIncomingSequenceFlowAndTwoOutgoingSequenceFlows() =
+            let el = ParallelGateway ("id", Some "parentId", Point (1,2))
+            let seq2 = BPMNFlow (Sequence, "dummy", "id", "flow2", Point (1, 1), Point (1, 1))
+            let seq3 = BPMNFlow (Sequence, "id", "dummy", "flow3", Point (1, 1), Point (1, 1))
+            let seq4 = BPMNFlow (Sequence, "id", "dummy", "flow4", Point (1, 1), Point (1, 1))
+            let (children, flows) = Normalizer.normalize(el, [seq2], [seq3; seq4], [], [])
+            Seq.length children |> should equal 1
+            Seq.length flows |> should equal 0
+            Seq.last children |> should equal (AND ("id", "id", Point (1,2)))
+        
+        [<Test>]
+        member this.ParallelGatewayWithNoIncomingSequenceFlowAndTwoOutgoingSequenceFlows() =
+            let el = ParallelGateway ("id", Some "parentId", Point (1,2))
+            let seq3 = BPMNFlow (Sequence, "id", "dummy", "flow3", Point (1, 1), Point (1, 1))
+            let seq4 = BPMNFlow (Sequence, "id", "dummy", "flow4", Point (1, 1), Point (1, 1))
+            let (children, flows) = Normalizer.normalize(el, [], [seq3; seq4], [], [])
+            Seq.length children |> should equal 2
+            Seq.length flows |> should equal 1
+            Seq.head children |> should equal (Start ("id_start", "id", Point (1,2)))
+            Seq.last children |> should equal (AND ("id_and", "id", Point (1,2)))
+            Seq.head flows |> should equal (BPMNFlow (Link, "id_start", "id_and", "id", Point (1,2), Point (1,2)))
+        
+        [<Test>]
+        member this.ParallelGatewayWithNoIncomingSequenceFlowAndOneOutgoingSequenceFlow() =
+            let el = ParallelGateway ("id", Some "parentId", Point (1,2))
+            let seq3 = BPMNFlow (Sequence, "id", "dummy", "flow3", Point (1, 1), Point (1, 1))
+            let seq4 = BPMNFlow (Sequence, "id", "dummy", "flow4", Point (1, 1), Point (1, 1))
+            let (children, flows) = Normalizer.normalize(el, [], [seq4], [], [])
+            Seq.length children |> should equal 2
+            Seq.length flows |> should equal 1
+            Seq.head children |> should equal (Start ("id_start", "id", Point (1,2)))
+            Seq.last children |> should equal (AND ("id_and", "id", Point (1,2)))
+            Seq.head flows |> should equal (BPMNFlow (Link, "id_start", "id_and", "id", Point (1,2), Point (1,2)))
 
-            
-            
         [<Test>]
         member this.ExclusiveGatewayWithOneIncomingSequenceFlow() =
             let el = ExclusiveGateway ("id", Some "parentId", Point (1,2))
@@ -157,6 +197,7 @@ module NormalizerTests =
             let seq3 = BPMNFlow (Sequence, "id", "dummy", "flow3", Point (1, 1), Point (1, 1))
             let (children, flows) = Normalizer.normalize(el, [seq1; seq2], [seq3], [], [])
             Seq.length children |> should equal 1
+            Seq.length flows |> should equal 0
             Seq.last children |> should equal (XOR ("id", "id", Point (1,2)))
         
         [<Test>]
@@ -168,8 +209,8 @@ module NormalizerTests =
             let seq4 = BPMNFlow (Sequence, "id", "dummy", "flow4", Point (1, 1), Point (1, 1))
             let (children, flows) = Normalizer.normalize(el, [seq1; seq2], [seq3; seq4], [], [])
             Seq.length children |> should equal 1
+            Seq.length flows |> should equal 0
             Seq.last children |> should equal (XOR ("id", "id", Point (1,2)))
-        
         
         [<Test>]
         member this.ExclusiveGatewayWithTwoOutgoingSequenceFlows() =
@@ -182,3 +223,105 @@ module NormalizerTests =
             Seq.head children |> should equal (Start ("id_start", "id", Point (1,2)))
             Seq.last children |> should equal (XOR ("id_xor", "id", Point (1,2)))
             Seq.head flows |> should equal (BPMNFlow (Link, "id_start", "id_xor", "id", Point (1,2), Point (1,2)))
+        
+        [<Test>]
+        member this.ExclusiveGatewayWithOneOutgoingSequenceFlow() =
+            let el = ExclusiveGateway ("id", Some "parentId", Point (1,2))
+            let seq3 = BPMNFlow (Sequence, "id", "dummy", "flow3", Point (1, 1), Point (1, 1))
+            let (children, flows) = Normalizer.normalize(el, [], [seq3], [], [])
+            Seq.length children |> should equal 2
+            Seq.length flows |> should equal 1
+            Seq.head children |> should equal (Start ("id_start", "id", Point (1,2)))
+            Seq.last children |> should equal (XOR ("id_xor", "id", Point (1,2)))
+            Seq.head flows |> should equal (BPMNFlow (Link, "id_start", "id_xor", "id", Point (1,2), Point (1,2)))
+        
+        [<Test>]
+        member this.ActivityWithIncomingAndOutgoingSequenceAndMessageFlows() =
+            let el = Activity ("id", Some "parentId", Point (1,2))
+            let seq1 = BPMNFlow (Sequence, "dummy", "id", "flow1", Point (1, 1), Point (1, 1))
+            let seq2 = BPMNFlow (Sequence, "dummy", "id", "flow2", Point (1, 1), Point (1, 1))
+            let seq3 = BPMNFlow (Sequence, "id", "dummy", "flow3", Point (1, 1), Point (1, 1))
+            let seq4 = BPMNFlow (Sequence, "id", "dummy", "flow4", Point (1, 1), Point (1, 1))
+            let mes1 = BPMNFlow (Message, "dummy", "id", "mes1", Point (1, 1), Point (1, 1))
+            let mes2 = BPMNFlow (Message, "dummy", "id", "mes2", Point (1, 1), Point (1, 1))
+            let (children, flows) = Normalizer.normalize(el, [seq1; seq2], [seq3; seq4], [mes1], [mes2])
+            Seq.length children |> should equal 2
+            Seq.length flows |> should equal 1
+            Seq.head children |> should equal (XOR ("id_xor", "id", Point (1,2)))
+            Seq.last children |> should equal (AND ("id_and", "id", Point (1,2)))
+            Seq.head flows |> should equal (BPMNFlow (Link, "id_xor", "id_and", "id", Point (1,2), Point (1,2)))
+
+        [<Test>]
+        member this.ActivityWithNoIncomingSequenceFlowsAndOutgoingSequenceAndMessageFlows() =
+            let el = Activity ("id", Some "parentId", Point (1,2))
+            let seq3 = BPMNFlow (Sequence, "id", "dummy", "flow3", Point (1, 1), Point (1, 1))
+            let seq4 = BPMNFlow (Sequence, "id", "dummy", "flow4", Point (1, 1), Point (1, 1))
+            let mes1 = BPMNFlow (Message, "dummy", "id", "mes1", Point (1, 1), Point (1, 1))
+            let mes2 = BPMNFlow (Message, "dummy", "id", "mes2", Point (1, 1), Point (1, 1))
+            let (children, flows) = Normalizer.normalize(el, [], [seq3; seq4], [mes1], [mes2])
+            Seq.length children |> should equal 2
+            Seq.length flows |> should equal 1
+            Seq.head children |> should equal (Start ("id_start", "id", Point (1,2)))
+            Seq.last children |> should equal (AND ("id_and", "id", Point (1,2)))
+            Seq.head flows |> should equal (BPMNFlow (Link, "id_start", "id_and", "id", Point (1,2), Point (1,2)))
+        
+        [<Test>]
+        member this.ActivityWithOnlyIncomingMessageFlow() =
+            let el = Activity ("id", Some "parentId", Point (1,2))
+            let mes1 = BPMNFlow (Message, "dummy", "id", "mes1", Point (1, 1), Point (1, 1))
+            let mes2 = BPMNFlow (Message, "dummy", "id", "mes2", Point (1, 1), Point (1, 1))
+            let (children, flows) = Normalizer.normalize(el, [], [], [mes1; mes2], [])
+            Seq.length children |> should equal 3
+            Seq.length flows |> should equal 2
+            Seq.item 0 children |> should equal (Start ("id_start", "id", Point (1,2)))
+            Seq.item 1 children |> should equal (AND ("id_and", "id", Point (1,2)))
+            Seq.item 2 children |> should equal (End ("id_end", "id", Point (1,2)))
+            Seq.head flows |> should equal (BPMNFlow (Link, "id_start", "id_and", "id_1", Point (1,2), Point (1,2)))
+            Seq.last flows |> should equal (BPMNFlow (Link, "id_and", "id_end", "id_2", Point (1,2), Point (1,2)))
+        
+        [<Test>]
+        member this.ActivityWithOnlyOutgoingMessageFlow() =
+            let el = Activity ("id", Some "parentId", Point (1,2))
+            let mes1 = BPMNFlow (Message, "dummy", "id", "mes1", Point (1, 1), Point (1, 1))
+            let mes2 = BPMNFlow (Message, "dummy", "id", "mes2", Point (1, 1), Point (1, 1))
+            let (children, flows) = Normalizer.normalize(el, [], [], [], [mes1; mes2])
+            Seq.length children |> should equal 3
+            Seq.length flows |> should equal 2
+            Seq.item 0 children |> should equal (Start ("id_start", "id", Point (1,2)))
+            Seq.item 1 children |> should equal (AND ("id_and", "id", Point (1,2)))
+            Seq.item 2 children |> should equal (End ("id_end", "id", Point (1,2)))
+            Seq.head flows |> should equal (BPMNFlow (Link, "id_start", "id_and", "id_1", Point (1,2), Point (1,2)))
+            Seq.last flows |> should equal (BPMNFlow (Link, "id_and", "id_end", "id_2", Point (1,2), Point (1,2)))
+        
+        [<Test>]
+        member this.ActivityWithIncomingAndOutgoingMessageFlow() =
+            let el = Activity ("id", Some "parentId", Point (1,2))
+            let mes1 = BPMNFlow (Message, "dummy", "id", "mes1", Point (1, 1), Point (1, 1))
+            let mes2 = BPMNFlow (Message, "dummy", "id", "mes2", Point (1, 1), Point (1, 1))
+            let mes3 = BPMNFlow (Message, "dummy", "mes3", "id", Point (1, 1), Point (1, 1))
+            let mes4 = BPMNFlow (Message, "dummy", "mes4", "id", Point (1, 1), Point (1, 1))
+            let (children, flows) = Normalizer.normalize(el, [], [], [mes3; mes4], [mes1; mes2])
+            Seq.length children |> should equal 3
+            Seq.length flows |> should equal 2
+            Seq.item 0 children |> should equal (Start ("id_start", "id", Point (1,2)))
+            Seq.item 1 children |> should equal (AND ("id_and", "id", Point (1,2)))
+            Seq.item 2 children |> should equal (End ("id_end", "id", Point (1,2)))
+            Seq.head flows |> should equal (BPMNFlow (Link, "id_start", "id_and", "id_1", Point (1,2), Point (1,2)))
+            Seq.last flows |> should equal (BPMNFlow (Link, "id_and", "id_end", "id_2", Point (1,2), Point (1,2)))
+        
+        [<Test>]
+        member this.ActivityWithoutOutgoingMessageFlow() =
+            let el = Activity ("id", Some "parentId", Point (1,2))
+            let seq1 = BPMNFlow (Message, "dummy", "id", "mes1", Point (1, 1), Point (1, 1))
+            let mes1 = BPMNFlow (Message, "dummy", "id", "mes1", Point (1, 1), Point (1, 1))
+            let mes2 = BPMNFlow (Message, "dummy", "id", "mes2", Point (1, 1), Point (1, 1))
+            let mes3 = BPMNFlow (Message, "dummy", "mes3", "id", Point (1, 1), Point (1, 1))
+            let mes4 = BPMNFlow (Message, "dummy", "mes4", "id", Point (1, 1), Point (1, 1))
+            let (children, flows) = Normalizer.normalize(el, [], [], [mes3; mes4], [mes1; mes2])
+            Seq.length children |> should equal 3
+            Seq.length flows |> should equal 2
+            Seq.item 0 children |> should equal (Start ("id_start", "id", Point (1,2)))
+            Seq.item 1 children |> should equal (AND ("id_and", "id", Point (1,2)))
+            Seq.item 2 children |> should equal (End ("id_end", "id", Point (1,2)))
+            Seq.head flows |> should equal (BPMNFlow (Link, "id_start", "id_and", "id_1", Point (1,2), Point (1,2)))
+            Seq.last flows |> should equal (BPMNFlow (Link, "id_and", "id_end", "id_2", Point (1,2), Point (1,2)))

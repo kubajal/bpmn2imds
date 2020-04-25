@@ -11,6 +11,8 @@ module Validator =
     let splitResults rs =
         List.fold split ([], []) rs
 
+    // todo: BoundaryEvent / BoundaryFlow tests
+
     let checkRule (rule, id, incSeq, outSeq, incMes, outMes) =
         match rule with 
         | MaximumIncomingSequenceFlows n -> 
@@ -70,8 +72,8 @@ module Validator =
                 [MinimumOutgoingSequenceFlows 1; 
                     MinimumIncomingSequenceFlows 1])
             | BoundaryEvent (_, _, _, _) -> 
-                ([MaximumIncomingMessageFlows 0;
-                    MaximumOutgoingMessageFlows 0], [])
+                ([MaximumIncomingMessageFlows 0; MaximumIncomingSequenceFlows 1], 
+                [MaximumOutgoingMessageFlows 1; MaximumOutgoingSequenceFlows 1])
             | EndEvent (_, _, _) -> (
                 [MaximumOutgoingSequenceFlows 0;
                     MaximumIncomingMessageFlows 0;

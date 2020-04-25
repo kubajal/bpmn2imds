@@ -12,7 +12,18 @@ module Normalizer =
         outMes: seq<BPMNFlow>) =
         match element with
         | ParallelGateway (id, parent, middle) -> 
-            ([AND (id, id, middle)], [])
+            match (Seq.length incSeq, Seq.length outSeq) with
+            | (0, x) when x > 0 -> 
+                let start = Start(id+"_start", id, middle)
+                let AND = AND (id+"_and", id, middle)
+                let link = BPMNFlow (Link, id+"_start", id+"_and", id, middle, middle)
+                ([start; AND], [link])
+            | (x, 0) when x > 0 -> 
+                let AND = AND (id+"_and", id, middle)
+                let e = End (id+"_end", id, middle)
+                let link = BPMNFlow (Link, id+"_and", id+"_end", id, middle, middle)
+                ([AND; e], [link])
+            | (x, y) -> ([AND (id, id, middle)], [])
         | ExclusiveGateway (id, parent, middle) -> 
             match (Seq.length incSeq, Seq.length outSeq) with
             | (0, x) when x > 0 -> 
@@ -50,5 +61,22 @@ module Normalizer =
                 let AND = AND (id+"_and", id, middle)
                 let link = BPMNFlow (Link, id+"_start", id+"_and", id, middle, middle)
                 ([start; AND], [link])
-        //| ExclusiveGateway (_, _, _) -> 
-        //| Activity (_, _, _) -> 
+        | Activity (id, parent, middle) -> 
+            match (Seq.length incSeq, Seq.length outSeq, Seq.length incMes, Seq.length outMes) with
+            | (0, 0, x, y) when x > 0 || y > 0 -> 
+                let start = Start (id+"_start", id, middle)
+                let AND = AND (id+"_and", id, middle)
+                let e = End (id+"_end", id, middle)
+                let link1 = BPMNFlow (Link, id+"_start", id+"_and", id+"_1", middle, middle)
+                let link2 = BPMNFlow (Link, id+"_and", id+"_end", id+"_2", middle, middle)
+                ([start; AND; e], [link1; link2])
+            | (0, _, _, _) -> 
+                let start = Start (id+"_start", id, middle)
+                let AND = AND (id+"_and", id, middle)
+                let link = BPMNFlow (Link, id+"_start", id+"_and", id, middle, middle)
+                ([start; AND], [link])
+            | (_, _, _, _) -> 
+                let xor = XOR (id+"_xor", id, middle)
+                let AND = AND (id+"_and", id, middle)
+                let link = BPMNFlow (Link, id+"_xor", id+"_and", id, middle, middle)
+                ([xor; AND], [link])
