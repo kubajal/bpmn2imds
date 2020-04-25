@@ -12,8 +12,9 @@ module Normalizer =
         outMes: seq<BPMNFlow>) =
         match element with
         | ParallelGateway (id, parent, middle) -> 
-            match (Seq.length incSeq, Seq.length outSeq) with
-            | (_, _) -> ([XOR (id, id, middle)], [])
+            ([AND (id, id, middle)], [])
+        | ExclusiveGateway (id, parent, middle) -> 
+            ([XOR (id, id, middle)], [])
         | BoundaryEvent (id, parent, middle, _) -> 
             match (Seq.length incSeq, Seq.length outSeq) with
             | (_, _) -> ([AND (id, id, middle)], [])
