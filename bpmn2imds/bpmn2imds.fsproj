@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="ParserBuilder.fs" />
+    <Compile Include="Utils.fs" />
+    <Compile Include="Processor.fs" />
+    <Compile Include="Normalizer.fs" />
+    <Compile Include="Validator.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BPMN.Sharp" Version="1.0.7" />
+    <PackageReference Include="QuickGraph" Version="3.6.61119.7" />
+  </ItemGroup>
+
+</Project>
