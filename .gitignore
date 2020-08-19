@@ -338,3 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+# OpenAPITools (https://github.com/OpenAPITools/openapi-generator)
+openapi-generator-cli.jar
