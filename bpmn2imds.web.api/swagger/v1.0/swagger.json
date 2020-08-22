@@ -1,0 +1,128 @@
+﻿{
+  "x-generator": "NSwag v13.0.4.0 (NJsonSchema v10.0.21.0 (Newtonsoft.Json v11.0.0.0))",
+  "swagger": "2.0",
+  "info": {
+    "title": "My Title",
+    "version": "1.0.0"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/bpmn2imds/validate/{queuedAgents}": {
+      "post": {
+        "tags": [
+          "Bpmn2ImdsVerification"
+        ],
+        "operationId": "Bpmn2ImdsVerification_Validate",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "queuedAgents",
+            "in": "path",
+            "required": true,
+            "format": "int32",
+            "x-nullable": false
+          },
+          {
+            "name": "Payload",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RequestPayload"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Deadlock"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Deadlock": {
+      "type": "object",
+      "properties": {
+        "blockedElement": {
+          "$ref": "#/definitions/BlockedElement"
+        },
+        "path": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DeadlockStep"
+          }
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "BlockedElement": {
+      "type": "object",
+      "properties": {
+        "lockedElementId": {
+          "type": "string"
+        },
+        "activated": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LockedElementNeighbour"
+          }
+        },
+        "blocked": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LockedElementNeighbour"
+          }
+        }
+      }
+    },
+    "LockedElementNeighbour": {
+      "type": "object",
+      "properties": {
+        "elementId": {
+          "type": "string"
+        }
+      }
+    },
+    "DeadlockStep": {
+      "type": "object",
+      "properties": {
+        "elementId": {
+          "type": "string"
+        },
+        "from": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        }
+      }
+    },
+    "RequestPayload": {
+      "type": "object",
+      "required": [
+        "xml"
+      ],
+      "properties": {
+        "xml": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}
