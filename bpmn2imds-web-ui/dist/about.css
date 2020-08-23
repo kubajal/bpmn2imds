@@ -1,0 +1,2124 @@
+.mediaViewInfo {
+	--web-view-name: about;
+	--web-view-id: about;
+	--web-scale-on-resize: true;
+	--web-enable-deep-linking: true;
+}
+:root {
+	--web-view-ids: about;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	border: none;
+}
+#about {
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+	background-color: rgba(245,247,250,1);
+	overflow: hidden;
+	--web-view-name: about;
+	--web-view-id: about;
+	--web-scale-on-resize: true;
+	--web-enable-deep-linking: true;
+}
+@keyframes fadein {
+
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+
+}
+#about_bo {
+	transform: matrix(1,0,0,1,143,63.7373) rotate(0deg);
+	transform-origin: center;
+	left: 0px;
+	top: 0px;
+	position: fixed;
+	overflow: hidden;
+	width: 396px;
+	height: 43px;
+	text-align: left;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 40px;
+	color: rgba(0,0,0,1);
+}
+#bpmn2imds_is_an_open_source_BP {
+	left: 140px;
+	top: 151px;
+	position: absolute;
+	overflow: visible;
+	width: 1641px;
+	height: 70px;
+	text-align: left;
+	font-family: Courier New;
+	font-style: italic;
+	font-weight: normal;
+	font-size: 28px;
+	color: rgba(0,0,0,1);
+}
+#reference__-_Object_Management {
+	left: 140px;
+	top: 644px;
+	position: absolute;
+	overflow: visible;
+	width: 1641px;
+	height: 179px;
+	text-align: left;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 28px;
+	color: rgba(0,0,0,1);
+}
+#Repeat_Grid_3 {
+	position: absolute;
+	width: 3084px;
+	height: 260px;
+	left: 140px;
+	top: 340px;
+	overflow: hidden;
+}
+#Group_18 {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_17 {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_14 {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_14 {
+	position: absolute;
+	overflow: visible;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+}
+#Group_16 {
+	position: absolute;
+	width: 208.866px;
+	height: 195.5px;
+	left: 25.134px;
+	top: 30px;
+	overflow: visible;
+}
+#parallel_gateway {
+	left: 0px;
+	top: 165.315px;
+	position: absolute;
+	overflow: visible;
+	width: 209.866px;
+	height: 30.184906005859375px;
+	text-align: left;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(0,0,0,1);
+}
+#parallel_-_Copy {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 36px;
+	top: 0px;
+	overflow: hidden;
+}
+#parallel_-_Copy_by {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g85 {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: hidden;
+}
+#g85_b {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g79 {
+	position: absolute;
+	width: 110.783px;
+	height: 110.783px;
+	left: 12.858px;
+	top: 12.828px;
+	overflow: visible;
+}
+#polygon75 {
+	fill: rgba(255,255,255,0.949);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 2px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.polygon75 {
+	overflow: visible;
+	position: absolute;
+	width: 113.611px;
+	height: 113.611px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#path18 {
+	fill: rgba(0,0,0,1);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.path18 {
+	overflow: visible;
+	position: absolute;
+	width: 67.47px;
+	height: 67.47px;
+	left: 22.145px;
+	top: 19.935px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#rect81 {
+	fill: transparent;
+	stroke: rgba(255,255,255,0);
+	stroke-width: 15px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.rect81 {
+	position: absolute;
+	overflow: visible;
+	width: 125px;
+	height: 126px;
+	left: 13px;
+	top: 13px;
+}
+#rect83 {
+	fill: transparent;
+}
+.rect83 {
+	position: absolute;
+	overflow: visible;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+}
+#Group_18_b {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 280px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_17_b {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_14_b {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_14_b {
+	position: absolute;
+	overflow: visible;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+}
+#Group_16_b {
+	position: absolute;
+	width: 208.866px;
+	height: 195.5px;
+	left: 25.134px;
+	top: 30px;
+	overflow: visible;
+}
+#parallel_gateway_ca {
+	left: 0px;
+	top: 165.315px;
+	position: absolute;
+	overflow: visible;
+	width: 209.866px;
+	height: 30.184906005859375px;
+	text-align: left;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(0,0,0,1);
+}
+#parallel_-_Copy_cb {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 36px;
+	top: 0px;
+	overflow: hidden;
+}
+#parallel_-_Copy_cc {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g85_cd {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: hidden;
+}
+#g85_ce {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g79_cf {
+	position: absolute;
+	width: 110.783px;
+	height: 110.783px;
+	left: 12.858px;
+	top: 12.828px;
+	overflow: visible;
+}
+#polygon75_cg {
+	fill: rgba(255,255,255,0.949);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 2px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.polygon75_cg {
+	overflow: visible;
+	position: absolute;
+	width: 113.611px;
+	height: 113.611px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#path18_ch {
+	fill: rgba(0,0,0,1);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.path18_ch {
+	overflow: visible;
+	position: absolute;
+	width: 67.47px;
+	height: 67.47px;
+	left: 22.145px;
+	top: 19.935px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#rect81_ci {
+	fill: transparent;
+	stroke: rgba(255,255,255,0);
+	stroke-width: 15px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.rect81_ci {
+	position: absolute;
+	overflow: visible;
+	width: 125px;
+	height: 126px;
+	left: 13px;
+	top: 13px;
+}
+#rect83_cj {
+	fill: transparent;
+}
+.rect83_cj {
+	position: absolute;
+	overflow: visible;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+}
+#Group_18_ck {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 560px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_17_cl {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_14_cm {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_14_cm {
+	position: absolute;
+	overflow: visible;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+}
+#Group_16_cn {
+	position: absolute;
+	width: 208.866px;
+	height: 195.5px;
+	left: 25.134px;
+	top: 30px;
+	overflow: visible;
+}
+#parallel_gateway_co {
+	left: 0px;
+	top: 165.315px;
+	position: absolute;
+	overflow: visible;
+	width: 209.866px;
+	height: 30.184906005859375px;
+	text-align: left;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(0,0,0,1);
+}
+#parallel_-_Copy_cp {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 36px;
+	top: 0px;
+	overflow: hidden;
+}
+#parallel_-_Copy_cq {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g85_cr {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: hidden;
+}
+#g85_cs {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g79_ct {
+	position: absolute;
+	width: 110.783px;
+	height: 110.783px;
+	left: 12.858px;
+	top: 12.828px;
+	overflow: visible;
+}
+#polygon75_cu {
+	fill: rgba(255,255,255,0.949);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 2px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.polygon75_cu {
+	overflow: visible;
+	position: absolute;
+	width: 113.611px;
+	height: 113.611px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#path18_cv {
+	fill: rgba(0,0,0,1);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.path18_cv {
+	overflow: visible;
+	position: absolute;
+	width: 67.47px;
+	height: 67.47px;
+	left: 22.145px;
+	top: 19.935px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#rect81_cw {
+	fill: transparent;
+	stroke: rgba(255,255,255,0);
+	stroke-width: 15px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.rect81_cw {
+	position: absolute;
+	overflow: visible;
+	width: 125px;
+	height: 126px;
+	left: 13px;
+	top: 13px;
+}
+#rect83_cx {
+	fill: transparent;
+}
+.rect83_cx {
+	position: absolute;
+	overflow: visible;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+}
+#Group_18_cy {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 840px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_17_cz {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_14_c {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_14_c {
+	position: absolute;
+	overflow: visible;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+}
+#Group_16_c {
+	position: absolute;
+	width: 208.866px;
+	height: 195.5px;
+	left: 25.134px;
+	top: 30px;
+	overflow: visible;
+}
+#parallel_gateway_c {
+	left: 0px;
+	top: 165.315px;
+	position: absolute;
+	overflow: visible;
+	width: 209.866px;
+	height: 30.184906005859375px;
+	text-align: left;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(0,0,0,1);
+}
+#parallel_-_Copy_c {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 36px;
+	top: 0px;
+	overflow: hidden;
+}
+#parallel_-_Copy_da {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g85_c {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: hidden;
+}
+#g85_da {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g79_c {
+	position: absolute;
+	width: 110.783px;
+	height: 110.783px;
+	left: 12.858px;
+	top: 12.828px;
+	overflow: visible;
+}
+#polygon75_c {
+	fill: rgba(255,255,255,0.949);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 2px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.polygon75_c {
+	overflow: visible;
+	position: absolute;
+	width: 113.611px;
+	height: 113.611px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#path18_c {
+	fill: rgba(0,0,0,1);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.path18_c {
+	overflow: visible;
+	position: absolute;
+	width: 67.47px;
+	height: 67.47px;
+	left: 22.145px;
+	top: 19.935px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#rect81_da {
+	fill: transparent;
+	stroke: rgba(255,255,255,0);
+	stroke-width: 15px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.rect81_da {
+	position: absolute;
+	overflow: visible;
+	width: 125px;
+	height: 126px;
+	left: 13px;
+	top: 13px;
+}
+#rect83_db {
+	fill: transparent;
+}
+.rect83_db {
+	position: absolute;
+	overflow: visible;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+}
+#Group_18_dc {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 1120px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_17_dd {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_14_de {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_14_de {
+	position: absolute;
+	overflow: visible;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+}
+#Group_16_df {
+	position: absolute;
+	width: 208.866px;
+	height: 195.5px;
+	left: 25.134px;
+	top: 30px;
+	overflow: visible;
+}
+#parallel_gateway_dg {
+	left: 0px;
+	top: 165.315px;
+	position: absolute;
+	overflow: visible;
+	width: 209.866px;
+	height: 30.184906005859375px;
+	text-align: left;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(0,0,0,1);
+}
+#parallel_-_Copy_dh {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 36px;
+	top: 0px;
+	overflow: hidden;
+}
+#parallel_-_Copy_di {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g85_dj {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: hidden;
+}
+#g85_dk {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g79_dl {
+	position: absolute;
+	width: 110.783px;
+	height: 110.783px;
+	left: 12.858px;
+	top: 12.828px;
+	overflow: visible;
+}
+#polygon75_dm {
+	fill: rgba(255,255,255,0.949);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 2px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.polygon75_dm {
+	overflow: visible;
+	position: absolute;
+	width: 113.611px;
+	height: 113.611px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#path18_dn {
+	fill: rgba(0,0,0,1);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.path18_dn {
+	overflow: visible;
+	position: absolute;
+	width: 67.47px;
+	height: 67.47px;
+	left: 22.145px;
+	top: 19.935px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#rect81_do {
+	fill: transparent;
+	stroke: rgba(255,255,255,0);
+	stroke-width: 15px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.rect81_do {
+	position: absolute;
+	overflow: visible;
+	width: 125px;
+	height: 126px;
+	left: 13px;
+	top: 13px;
+}
+#rect83_dp {
+	fill: transparent;
+}
+.rect83_dp {
+	position: absolute;
+	overflow: visible;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+}
+#Group_18_dq {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 1400px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_17_dr {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_14_ds {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_14_ds {
+	position: absolute;
+	overflow: visible;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+}
+#Group_16_dt {
+	position: absolute;
+	width: 208.866px;
+	height: 195.5px;
+	left: 25.134px;
+	top: 30px;
+	overflow: visible;
+}
+#parallel_gateway_du {
+	left: 0px;
+	top: 165.315px;
+	position: absolute;
+	overflow: visible;
+	width: 209.866px;
+	height: 30.184906005859375px;
+	text-align: left;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(0,0,0,1);
+}
+#parallel_-_Copy_dv {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 36px;
+	top: 0px;
+	overflow: hidden;
+}
+#parallel_-_Copy_dw {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g85_dx {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: hidden;
+}
+#g85_dy {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g79_dz {
+	position: absolute;
+	width: 110.783px;
+	height: 110.783px;
+	left: 12.858px;
+	top: 12.828px;
+	overflow: visible;
+}
+#polygon75_d {
+	fill: rgba(255,255,255,0.949);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 2px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.polygon75_d {
+	overflow: visible;
+	position: absolute;
+	width: 113.611px;
+	height: 113.611px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#path18_d {
+	fill: rgba(0,0,0,1);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.path18_d {
+	overflow: visible;
+	position: absolute;
+	width: 67.47px;
+	height: 67.47px;
+	left: 22.145px;
+	top: 19.935px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#rect81_d {
+	fill: transparent;
+	stroke: rgba(255,255,255,0);
+	stroke-width: 15px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.rect81_d {
+	position: absolute;
+	overflow: visible;
+	width: 125px;
+	height: 126px;
+	left: 13px;
+	top: 13px;
+}
+#rect83_d {
+	fill: transparent;
+}
+.rect83_d {
+	position: absolute;
+	overflow: visible;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+}
+#Group_18_d {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 1680px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_17_d {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_14_d {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_14_d {
+	position: absolute;
+	overflow: visible;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+}
+#Group_16_d {
+	position: absolute;
+	width: 208.866px;
+	height: 195.5px;
+	left: 25.134px;
+	top: 30px;
+	overflow: visible;
+}
+#parallel_gateway_d {
+	left: 0px;
+	top: 165.315px;
+	position: absolute;
+	overflow: visible;
+	width: 209.866px;
+	height: 30.184906005859375px;
+	text-align: left;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(0,0,0,1);
+}
+#parallel_-_Copy_d {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 36px;
+	top: 0px;
+	overflow: hidden;
+}
+#parallel_-_Copy_ea {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g85_eb {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: hidden;
+}
+#g85_ec {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g79_ed {
+	position: absolute;
+	width: 110.783px;
+	height: 110.783px;
+	left: 12.858px;
+	top: 12.828px;
+	overflow: visible;
+}
+#polygon75_ee {
+	fill: rgba(255,255,255,0.949);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 2px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.polygon75_ee {
+	overflow: visible;
+	position: absolute;
+	width: 113.611px;
+	height: 113.611px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#path18_ef {
+	fill: rgba(0,0,0,1);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.path18_ef {
+	overflow: visible;
+	position: absolute;
+	width: 67.47px;
+	height: 67.47px;
+	left: 22.145px;
+	top: 19.935px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#rect81_eg {
+	fill: transparent;
+	stroke: rgba(255,255,255,0);
+	stroke-width: 15px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.rect81_eg {
+	position: absolute;
+	overflow: visible;
+	width: 125px;
+	height: 126px;
+	left: 13px;
+	top: 13px;
+}
+#rect83_eh {
+	fill: transparent;
+}
+.rect83_eh {
+	position: absolute;
+	overflow: visible;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+}
+#Group_18_ei {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 1960px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_17_ej {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_14_ek {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_14_ek {
+	position: absolute;
+	overflow: visible;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+}
+#Group_16_el {
+	position: absolute;
+	width: 208.866px;
+	height: 195.5px;
+	left: 25.134px;
+	top: 30px;
+	overflow: visible;
+}
+#parallel_gateway_em {
+	left: 0px;
+	top: 165.315px;
+	position: absolute;
+	overflow: visible;
+	width: 209.866px;
+	height: 30.184906005859375px;
+	text-align: left;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(0,0,0,1);
+}
+#parallel_-_Copy_en {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 36px;
+	top: 0px;
+	overflow: hidden;
+}
+#parallel_-_Copy_eo {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g85_ep {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: hidden;
+}
+#g85_eq {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g79_er {
+	position: absolute;
+	width: 110.783px;
+	height: 110.783px;
+	left: 12.858px;
+	top: 12.828px;
+	overflow: visible;
+}
+#polygon75_es {
+	fill: rgba(255,255,255,0.949);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 2px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.polygon75_es {
+	overflow: visible;
+	position: absolute;
+	width: 113.611px;
+	height: 113.611px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#path18_et {
+	fill: rgba(0,0,0,1);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.path18_et {
+	overflow: visible;
+	position: absolute;
+	width: 67.47px;
+	height: 67.47px;
+	left: 22.145px;
+	top: 19.935px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#rect81_eu {
+	fill: transparent;
+	stroke: rgba(255,255,255,0);
+	stroke-width: 15px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.rect81_eu {
+	position: absolute;
+	overflow: visible;
+	width: 125px;
+	height: 126px;
+	left: 13px;
+	top: 13px;
+}
+#rect83_ev {
+	fill: transparent;
+}
+.rect83_ev {
+	position: absolute;
+	overflow: visible;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+}
+#Group_18_ew {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 2240px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_17_ex {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_14_ey {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_14_ey {
+	position: absolute;
+	overflow: visible;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+}
+#Group_16_ez {
+	position: absolute;
+	width: 208.866px;
+	height: 195.5px;
+	left: 25.134px;
+	top: 30px;
+	overflow: visible;
+}
+#parallel_gateway_e {
+	left: 0px;
+	top: 165.315px;
+	position: absolute;
+	overflow: visible;
+	width: 209.866px;
+	height: 30.184906005859375px;
+	text-align: left;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(0,0,0,1);
+}
+#parallel_-_Copy_e {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 36px;
+	top: 0px;
+	overflow: hidden;
+}
+#parallel_-_Copy_fa {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g85_e {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: hidden;
+}
+#g85_fa {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g79_e {
+	position: absolute;
+	width: 110.783px;
+	height: 110.783px;
+	left: 12.858px;
+	top: 12.828px;
+	overflow: visible;
+}
+#polygon75_e {
+	fill: rgba(255,255,255,0.949);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 2px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.polygon75_e {
+	overflow: visible;
+	position: absolute;
+	width: 113.611px;
+	height: 113.611px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#path18_e {
+	fill: rgba(0,0,0,1);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.path18_e {
+	overflow: visible;
+	position: absolute;
+	width: 67.47px;
+	height: 67.47px;
+	left: 22.145px;
+	top: 19.935px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#rect81_e {
+	fill: transparent;
+	stroke: rgba(255,255,255,0);
+	stroke-width: 15px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.rect81_e {
+	position: absolute;
+	overflow: visible;
+	width: 125px;
+	height: 126px;
+	left: 13px;
+	top: 13px;
+}
+#rect83_e {
+	fill: transparent;
+}
+.rect83_e {
+	position: absolute;
+	overflow: visible;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+}
+#Group_18_fa {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 2520px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_17_fb {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_14_fc {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_14_fc {
+	position: absolute;
+	overflow: visible;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+}
+#Group_16_fd {
+	position: absolute;
+	width: 208.866px;
+	height: 195.5px;
+	left: 25.134px;
+	top: 30px;
+	overflow: visible;
+}
+#parallel_gateway_fe {
+	left: 0px;
+	top: 165.315px;
+	position: absolute;
+	overflow: visible;
+	width: 209.866px;
+	height: 30.184906005859375px;
+	text-align: left;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(0,0,0,1);
+}
+#parallel_-_Copy_ff {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 36px;
+	top: 0px;
+	overflow: hidden;
+}
+#parallel_-_Copy_fg {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g85_fh {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: hidden;
+}
+#g85_fi {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g79_fj {
+	position: absolute;
+	width: 110.783px;
+	height: 110.783px;
+	left: 12.858px;
+	top: 12.828px;
+	overflow: visible;
+}
+#polygon75_fk {
+	fill: rgba(255,255,255,0.949);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 2px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.polygon75_fk {
+	overflow: visible;
+	position: absolute;
+	width: 113.611px;
+	height: 113.611px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#path18_fl {
+	fill: rgba(0,0,0,1);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.path18_fl {
+	overflow: visible;
+	position: absolute;
+	width: 67.47px;
+	height: 67.47px;
+	left: 22.145px;
+	top: 19.935px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#rect81_fm {
+	fill: transparent;
+	stroke: rgba(255,255,255,0);
+	stroke-width: 15px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.rect81_fm {
+	position: absolute;
+	overflow: visible;
+	width: 125px;
+	height: 126px;
+	left: 13px;
+	top: 13px;
+}
+#rect83_fn {
+	fill: transparent;
+}
+.rect83_fn {
+	position: absolute;
+	overflow: visible;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+}
+#Group_18_fo {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 2800px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_17_fp {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_14_fq {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_14_fq {
+	position: absolute;
+	overflow: visible;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+}
+#Group_16_fr {
+	position: absolute;
+	width: 208.866px;
+	height: 195.5px;
+	left: 25.134px;
+	top: 30px;
+	overflow: visible;
+}
+#parallel_gateway_fs {
+	left: 0px;
+	top: 165.315px;
+	position: absolute;
+	overflow: visible;
+	width: 209.866px;
+	height: 30.184906005859375px;
+	text-align: left;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(0,0,0,1);
+}
+#parallel_-_Copy_ft {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 36px;
+	top: 0px;
+	overflow: hidden;
+}
+#parallel_-_Copy_fu {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g85_fv {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: hidden;
+}
+#g85_fw {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g79_fx {
+	position: absolute;
+	width: 110.783px;
+	height: 110.783px;
+	left: 12.858px;
+	top: 12.828px;
+	overflow: visible;
+}
+#polygon75_fy {
+	fill: rgba(255,255,255,0.949);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 2px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.polygon75_fy {
+	overflow: visible;
+	position: absolute;
+	width: 113.611px;
+	height: 113.611px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#path18_fz {
+	fill: rgba(0,0,0,1);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.path18_fz {
+	overflow: visible;
+	position: absolute;
+	width: 67.47px;
+	height: 67.47px;
+	left: 22.145px;
+	top: 19.935px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#rect81_f {
+	fill: transparent;
+	stroke: rgba(255,255,255,0);
+	stroke-width: 15px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.rect81_f {
+	position: absolute;
+	overflow: visible;
+	width: 125px;
+	height: 126px;
+	left: 13px;
+	top: 13px;
+}
+#rect83_f {
+	fill: transparent;
+}
+.rect83_f {
+	position: absolute;
+	overflow: visible;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+}
+#Group_18_f {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 3080px;
+	top: 0px;
+	overflow: visible;
+}
+#Group_17_f {
+	position: absolute;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#Rectangle_14_f {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_14_f {
+	position: absolute;
+	overflow: visible;
+	width: 260px;
+	height: 260px;
+	left: 0px;
+	top: 0px;
+}
+#Group_16_f {
+	position: absolute;
+	width: 208.866px;
+	height: 195.5px;
+	left: 25.134px;
+	top: 30px;
+	overflow: visible;
+}
+#parallel_gateway_f {
+	left: 0px;
+	top: 165.315px;
+	position: absolute;
+	overflow: visible;
+	width: 209.866px;
+	height: 30.184906005859375px;
+	text-align: left;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 20px;
+	color: rgba(0,0,0,1);
+}
+#parallel_-_Copy_f {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 36px;
+	top: 0px;
+	overflow: hidden;
+}
+#parallel_-_Copy_ga {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g85_f {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: hidden;
+}
+#g85_ga {
+	position: absolute;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+#g79_gb {
+	position: absolute;
+	width: 110.783px;
+	height: 110.783px;
+	left: 12.858px;
+	top: 12.828px;
+	overflow: visible;
+}
+#polygon75_gc {
+	fill: rgba(255,255,255,0.949);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 2px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.polygon75_gc {
+	overflow: visible;
+	position: absolute;
+	width: 113.611px;
+	height: 113.611px;
+	left: 0px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#path18_gd {
+	fill: rgba(0,0,0,1);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.path18_gd {
+	overflow: visible;
+	position: absolute;
+	width: 67.47px;
+	height: 67.47px;
+	left: 22.145px;
+	top: 19.935px;
+	transform: matrix(1,0,0,1,0,0);
+}
+#rect81_ge {
+	fill: transparent;
+	stroke: rgba(255,255,255,0);
+	stroke-width: 15px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.rect81_ge {
+	position: absolute;
+	overflow: visible;
+	width: 125px;
+	height: 126px;
+	left: 13px;
+	top: 13px;
+}
+#rect83_gf {
+	fill: transparent;
+}
+.rect83_gf {
+	position: absolute;
+	overflow: visible;
+	width: 137px;
+	height: 137px;
+	left: 0px;
+	top: 0px;
+}
+#supported_BPMN_elements {
+	left: 140px;
+	top: 265px;
+	position: absolute;
+	overflow: visible;
+	width: 1641px;
+	height: 31px;
+	text-align: left;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 28px;
+	color: rgba(0,0,0,1);
+}
+#about_group_gh {
+	position: absolute;
+	width: 162px;
+	height: 54px;
+	left: 1569px;
+	top: 822px;
+	overflow: visible;
+	--web-animation: fadein 0.3s ease-out;
+	--web-action-type: page;
+	--web-action-target: index.html;
+	cursor: pointer;
+}
+#Rectangle_4_gi {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_4_gi {
+	position: absolute;
+	overflow: visible;
+	width: 162px;
+	height: 54px;
+	left: 0px;
+	top: 0px;
+}
+#home_gj {
+	left: 34px;
+	top: 14px;
+	position: absolute;
+	overflow: hidden;
+	width: 95px;
+	height: 26px;
+	text-align: center;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 28px;
+	color: rgba(0,0,0,1);
+}
+#help_group_gk {
+	position: absolute;
+	width: 162px;
+	height: 54px;
+	left: 1569px;
+	top: 891px;
+	overflow: visible;
+	--web-animation: fadein 0.3s ease-out;
+	--web-action-type: page;
+	--web-action-target: help.html;
+	cursor: pointer;
+}
+#Rectangle_4_gl {
+	fill: rgba(255,255,255,1);
+	stroke: rgba(0,0,0,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.Rectangle_4_gl {
+	position: absolute;
+	overflow: visible;
+	width: 162px;
+	height: 54px;
+	left: 0px;
+	top: 0px;
+}
+#help_gm {
+	left: 34px;
+	top: 14px;
+	position: absolute;
+	overflow: hidden;
+	width: 95px;
+	height: 26px;
+	text-align: center;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 28px;
+	color: rgba(0,0,0,1);
+}
+#author__-_Jakub_Jaowiec_2019-2 {
+	left: 968px;
+	top: 822px;
+	position: absolute;
+	overflow: visible;
+	width: 459px;
+	height: 124px;
+	text-align: left;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 28px;
+	color: rgba(0,0,0,1);
+}
+#special_thanks_goes_to__-_Camu {
+	left: 278px;
+	top: 822px;
+	position: absolute;
+	overflow: visible;
+	width: 813px;
+	height: 124px;
+	text-align: left;
+	font-family: Courier New;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 28px;
+	color: rgba(0,0,0,1);
+}
