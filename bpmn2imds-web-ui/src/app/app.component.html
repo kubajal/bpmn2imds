@@ -2,17 +2,24 @@
   <div class="row navbar">
     <div class="col-9"></div>
     <div class="col-1">
-      index
+      <a routerLink="/index">index</a>
     </div>
     <div class="col-1">
-      about
+      <a routerLink="/about">about</a>
     </div>
     <div class="col-1">
-      help
+      <a routerLink="/help">help</a>
     </div>
   </div>
 </div>
 <router-outlet></router-outlet>
-<div class="footer">
-  author: Jakub Jalowiec, 2019-20
+<div class="container">
+  <div class="footer">
+      <div class="col-10">
+        Jakub Jalowiec © 2019-20
+      </div>
+      <div id="secret" class="col-10">
+        {{ addr }}
+      </div>
+  </div>
 </div>
