@@ -1,0 +1,37 @@
+<div class="container">
+  <h2>general questions</h2>
+  <div *ngFor="let e of this.generalDocEntries;">
+    <div id="{{e.id}}">
+      <div class="question">
+        {{ e.question }}
+      </div>
+      <div *ngFor="let a of e.answer;" class="answer">
+        - {{ a }}
+      </div>  
+      </div>
+  </div>
+  
+  <h2>mapping rules</h2>
+  <div *ngFor="let e of this.mappingDocEntries;">
+    <div id="{{e.id}}">
+      <div class="question">
+        {{ e.question }}
+      </div>
+      <div class="container mapping-rule">
+          <div class="row">
+            <div class="col">element</div>
+            <div class="col">from</div>
+            <div class="col">to</div>
+          </div>
+          <div *ngFor="let m of e.mapping;" class="mapping-rule">
+            <div class="row">
+              <div class="col">{{m.name}}</div>
+              <div class="col rule-row"><img src="{{m.from}}"/></div>
+              <div class="col rule-row" ><img src="{{m.to}}"/></div>
+            </div>      
+          </div>
+      </div>
+    </div>
+  </div>
+
+</div>

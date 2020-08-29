@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="start-event-post.svg"
+   id="svg107"
+   version="1.1"
+   viewBox="96 324 196.53543 139.84252"
+   height="37mm"
+   width="52mm">
+  <metadata
+     id="metadata111">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1680"
+     inkscape:window-height="987"
+     id="namedview109"
+     showgrid="false"
+     inkscape:zoom="1.5033982"
+     inkscape:cx="99.445259"
+     inkscape:cy="67.825508"
+     inkscape:window-x="1592"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg107"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:document-rotation="0"
+     units="mm"
+     inkscape:snap-grids="false"
+     inkscape:snap-page="false" />
+  <defs
+     id="defs11">
+    <marker
+       id="sequenceflow-end-white-black-eghjh1dv61v8zk05krh00zete"
+       viewBox="0 0 20 20"
+       refX="11"
+       refY="10"
+       markerWidth="10"
+       markerHeight="10"
+       orient="auto">
+      <path
+         d="M 1,5 11,10 1,15 Z"
+         style="fill:#000000;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-dasharray:10000, 1"
+         id="path2"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       id="messageflow-end-white-black-eghjh1dv61v8zk05krh00zete"
+       viewBox="0 0 20 20"
+       refX="8.5"
+       refY="5"
+       markerWidth="20"
+       markerHeight="20"
+       orient="auto">
+      <path
+         d="M 1,5 V 2 L 8,5 1,8 Z"
+         style="fill:#ffffff;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-dasharray:10000, 1"
+         id="path5"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       id="messageflow-start-white-black-eghjh1dv61v8zk05krh00zete"
+       viewBox="0 0 20 20"
+       refX="6"
+       refY="6"
+       markerWidth="20"
+       markerHeight="20"
+       orient="auto">
+      <circle
+         cx="6"
+         cy="6"
+         r="3.5"
+         style="fill:#ffffff;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-dasharray:10000, 1"
+         id="circle8" />
+    </marker>
+  </defs>
+  <g
+     class="djs-group"
+     id="g23"
+     transform="matrix(0.58073399,0,0,1,56.843113,-38.5)">
+    <g
+       class="djs-element djs-connection"
+       data-element-id="SequenceFlow_0a501qr"
+       style="display:block"
+       id="g21">
+      <g
+         class="djs-visual"
+         id="g15">
+        <path
+           d="m 138,430 h 57"
+           style="fill:none;stroke:#000000;stroke-width:2px;stroke-linejoin:round;marker-end:url(#sequenceflow-end-white-black-eghjh1dv61v8zk05krh00zete)"
+           id="path13"
+           inkscape:connector-curvature="0" />
+      </g>
+      <polyline
+         points="138,430 195,430 "
+         class="djs-hit djs-hit-stroke"
+         style="fill:none;stroke:#ffffff;stroke-width:15px;stroke-opacity:0"
+         id="polyline17" />
+      <rect
+         x="132"
+         y="424"
+         width="69"
+         height="12"
+         class="djs-outline"
+         style="fill:none"
+         id="rect19" />
+    </g>
+  </g>
+  <g
+     class="djs-group"
+     id="g35"
+     transform="translate(-24.913759,-38.5)">
+    <g
+       class="djs-element djs-connection"
+       data-element-id="SequenceFlow_0c39e02"
+       style="display:block"
+       id="g33">
+      <g
+         class="djs-visual"
+         id="g27">
+        <path
+           d="m 220,405 v -35 h 90"
+           style="fill:none;stroke:#000000;stroke-width:2px;stroke-linejoin:round;marker-end:url(#sequenceflow-end-white-black-eghjh1dv61v8zk05krh00zete)"
+           id="path25"
+           inkscape:connector-curvature="0" />
+      </g>
+      <polyline
+         points="220,405 220,370 310,370 "
+         class="djs-hit djs-hit-stroke"
+         style="fill:none;stroke:#ffffff;stroke-width:15px;stroke-opacity:0"
+         id="polyline29" />
+      <rect
+         x="214"
+         y="364"
+         width="102"
+         height="47"
+         class="djs-outline"
+         style="fill:none"
+         id="rect31" />
+    </g>
+  </g>
+  <g
+     class="djs-group"
+     id="g47"
+     transform="translate(-24.913759,-38.5)">
+    <g
+       class="djs-element djs-connection"
+       data-element-id="SequenceFlow_0iowsdb"
+       style="display:block"
+       id="g45">
+      <g
+         class="djs-visual"
+         id="g39">
+        <path
+           d="m 220,455 v 39.35593 h 89.17345"
+           style="fill:none;stroke:#000000;stroke-width:2px;stroke-linejoin:round;marker-end:url(#sequenceflow-end-white-black-eghjh1dv61v8zk05krh00zete)"
+           id="path37"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="ccc" />
+        <g
+           id="g976"
+           transform="translate(98.6953, 20.5292)"
+           inkscape:label="GridCartesian:X6:Y5">
+          <g
+             id="g920"
+             inkscape:label="MajorXGridlines">
+            <path
+               id="path910"
+               inkscape:label="MajorXDiv1"
+               d="M 18.8976 0 L 18.8976 94.4882"
+               style="fill:none;stroke:#000000;stroke-width:1.0" />
+            <path
+               id="path912"
+               inkscape:label="MajorXDiv2"
+               d="M 37.7953 0 L 37.7953 94.4882"
+               style="fill:none;stroke:#000000;stroke-width:1.0" />
+            <path
+               id="path914"
+               inkscape:label="MajorXDiv3"
+               d="M 56.6929 0 L 56.6929 94.4882"
+               style="fill:none;stroke:#000000;stroke-width:1.0" />
+            <path
+               id="path916"
+               inkscape:label="MajorXDiv4"
+               d="M 75.5906 0 L 75.5906 94.4882"
+               style="fill:none;stroke:#000000;stroke-width:1.0" />
+            <path
+               id="path918"
+               inkscape:label="MajorXDiv5"
+               d="M 94.4882 0 L 94.4882 94.4882"
+               style="fill:none;stroke:#000000;stroke-width:1.0" />
+          </g>
+          <g
+             id="g930"
+             inkscape:label="MajorYGridlines">
+            <path
+               id="path922"
+               inkscape:label="MajorYDiv1"
+               d="M 0 18.8976 L 113.386 18.8976"
+               style="fill:none;stroke:#000000;stroke-width:1.0" />
+            <path
+               id="path924"
+               inkscape:label="MajorYDiv2"
+               d="M 0 37.7953 L 113.386 37.7953"
+               style="fill:none;stroke:#000000;stroke-width:1.0" />
+            <path
+               id="path926"
+               inkscape:label="MajorYDiv3"
+               d="M 0 56.6929 L 113.386 56.6929"
+               style="fill:none;stroke:#000000;stroke-width:1.0" />
+            <path
+               id="path928"
+               inkscape:label="MajorYDiv4"
+               d="M 0 75.5906 L 113.386 75.5906"
+               style="fill:none;stroke:#000000;stroke-width:1.0" />
+          </g>
+          <g
+             id="g972"
+             inkscape:label="SubMinorYGridlines">
+            <path
+               id="path932"
+               inkscape:label="SubminorXDiv0:0:1"
+               d="M 0 3.77953 L 113.386 3.77953"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path934"
+               inkscape:label="SubminorXDiv0:0:2"
+               d="M 0 7.55906 L 113.386 7.55906"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path936"
+               inkscape:label="SubminorXDiv0:0:3"
+               d="M 0 11.3386 L 113.386 11.3386"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path938"
+               inkscape:label="SubminorXDiv0:0:4"
+               d="M 0 15.1181 L 113.386 15.1181"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path940"
+               inkscape:label="SubminorXDiv1:0:1"
+               d="M 0 22.6772 L 113.386 22.6772"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path942"
+               inkscape:label="SubminorXDiv1:0:2"
+               d="M 0 26.4567 L 113.386 26.4567"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path944"
+               inkscape:label="SubminorXDiv1:0:3"
+               d="M 0 30.2362 L 113.386 30.2362"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path946"
+               inkscape:label="SubminorXDiv1:0:4"
+               d="M 0 34.0157 L 113.386 34.0157"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path948"
+               inkscape:label="SubminorXDiv2:0:1"
+               d="M 0 41.5748 L 113.386 41.5748"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path950"
+               inkscape:label="SubminorXDiv2:0:2"
+               d="M 0 45.3543 L 113.386 45.3543"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path952"
+               inkscape:label="SubminorXDiv2:0:3"
+               d="M 0 49.1339 L 113.386 49.1339"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path954"
+               inkscape:label="SubminorXDiv2:0:4"
+               d="M 0 52.9134 L 113.386 52.9134"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path956"
+               inkscape:label="SubminorXDiv3:0:1"
+               d="M 0 60.4724 L 113.386 60.4724"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path958"
+               inkscape:label="SubminorXDiv3:0:2"
+               d="M 0 64.252 L 113.386 64.252"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path960"
+               inkscape:label="SubminorXDiv3:0:3"
+               d="M 0 68.0315 L 113.386 68.0315"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path962"
+               inkscape:label="SubminorXDiv3:0:4"
+               d="M 0 71.811 L 113.386 71.811"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path964"
+               inkscape:label="SubminorXDiv4:0:1"
+               d="M 0 79.3701 L 113.386 79.3701"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path966"
+               inkscape:label="SubminorXDiv4:0:2"
+               d="M 0 83.1496 L 113.386 83.1496"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path968"
+               inkscape:label="SubminorXDiv4:0:3"
+               d="M 0 86.9291 L 113.386 86.9291"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+            <path
+               id="path970"
+               inkscape:label="SubminorXDiv4:0:4"
+               d="M 0 90.7087 L 113.386 90.7087"
+               style="fill:none;stroke:#000000;stroke-width:0.30000001192092896" />
+          </g>
+          <rect
+             id="rect974"
+             inkscape:label="Border"
+             style="fill:none;stroke:#000000;stroke-width:1.0"
+             height="94.48818897637794"
+             width="113.38582677165354"
+             y="0"
+             x="0" />
+        </g>
+      </g>
+      <polyline
+         points="220,455 220,500 310,500 "
+         class="djs-hit djs-hit-stroke"
+         style="fill:none;stroke:#ffffff;stroke-width:15px;stroke-opacity:0"
+         id="polyline41" />
+      <rect
+         x="214"
+         y="449"
+         width="102"
+         height="57"
+         class="djs-outline"
+         style="fill:none"
+         id="rect43" />
+    </g>
+  </g>
+  <g
+     class="djs-group"
+     id="g59"
+     transform="translate(1.5,-38.5)">
+    <g
+       class="djs-element djs-shape"
+       data-element-id="StartEvent_0s0zyvs"
+       style="display:block"
+       transform="translate(102,412)"
+       id="g57">
+      <g
+         class="djs-visual"
+         id="g51">
+        <circle
+           cx="18"
+           cy="18"
+           r="18"
+           style="fill:#ffffff;fill-opacity:0.95;stroke:#000000;stroke-width:2px"
+           id="circle49" />
+      </g>
+      <rect
+         class="djs-hit djs-hit-all"
+         x="0"
+         y="0"
+         width="36"
+         height="36"
+         style="fill:none;stroke:#ffffff;stroke-width:15px;stroke-opacity:0"
+         id="rect53" />
+      <rect
+         x="-6"
+         y="-6"
+         width="48"
+         height="48"
+         class="djs-outline"
+         style="fill:none"
+         id="rect55" />
+    </g>
+  </g>
+  <g
+     class="djs-group"
+     id="g73"
+     transform="translate(-24.913759,-38.5)">
+    <g
+       class="djs-element djs-shape"
+       data-element-id="ExclusiveGateway_0ag8awg"
+       style="display:block"
+       transform="translate(195,405)"
+       id="g71">
+      <g
+         class="djs-visual"
+         id="g65">
+        <polygon
+           points="25,50 0,25 25,0 50,25 "
+           style="fill:#ffffff;fill-opacity:0.95;stroke:#000000;stroke-width:2px"
+           id="polygon61" />
+        <path
+           d="M 23,10 V 22.5 H 10.5 v 5 H 23 V 40 h 5 V 27.5 h 12.5 v -5 H 28 V 10 Z"
+           style="fill:#000000;stroke:#000000;stroke-width:1px"
+           id="path63"
+           inkscape:connector-curvature="0" />
+      </g>
+      <rect
+         class="djs-hit djs-hit-all"
+         x="0"
+         y="0"
+         width="50"
+         height="50"
+         style="fill:none;stroke:#ffffff;stroke-width:15px;stroke-opacity:0"
+         id="rect67" />
+      <rect
+         x="-6"
+         y="-6"
+         width="62"
+         height="62"
+         class="djs-outline"
+         style="fill:none"
+         id="rect69" />
+    </g>
+  </g>
+  <g
+     class="djs-group"
+     id="g89"
+     transform="translate(1.5,-38.5)" />
+</svg>

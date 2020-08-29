@@ -1,0 +1,29 @@
+[
+  {
+    "id": "how-to",
+    "question": "how do I use this software?",
+    "answer": [
+      "upload a diagram",
+      "verify",
+      "inspect deadlocks step-by-step"
+    ]
+  },
+  {
+    "id": "verifier",
+    "question": "what verifier does bpmn2imds use?",
+    "answer": [ "Dedan" ]
+  },
+  {
+    "id": "algorithm",
+    "question": "how are BPMN diagrams mapped into IMDS?",
+    "answer": [
+      "all elements are normalized", 
+      "normalized elements are mapped into an intermediate graph",
+      "intermediate graph is mapped into IMDS"]
+  },
+  {
+    "id": "supported-elements",
+    "question": "what BPMN elements are supported?",
+    "answer": ["parallel gateway", "exclusive gateway", "start event", "end event", "task", "sequence flow", "message flow"]
+  }
+]

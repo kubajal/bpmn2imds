@@ -28,6 +28,41 @@ button {
 }
 
 .footer {
+  width: 100%;
   height: 50px;
   text-align: center;
+}
+
+.question {
+  font-size: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.answer {
+  background-color: pink; // do wywalenia
+  table {
+    width: 100%;
+  }
+}
+.mapping-rule {
+  background-color: pink; // do wywalenia
+  table {
+    width: 100%;
+  }
+  height: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+.rule-row {
+  background-color: red; // do wywalenia
+}
+
+.answer li {
+  list-style-type: none;
+}
+
+h2 {
+  padding-top: 30px;
 }

@@ -1,0 +1,28 @@
+[
+  {
+    "id": "normalization",
+    "question": "what are normalization rules?",
+    "mapping": [
+      {
+        "name": "start event with mulitple outgoing edges",
+        "from": "assets/start-event/start-event-pre.svg",
+        "to": "assets/start-event/start-event-post.svg"
+      },
+      {
+        "name": "end event with mulitple incoming edges",
+        "from": "assets/end-event/end-event-pre.svg",
+        "to": "assets/end-event/end-event-post.svg"
+      },
+      {
+        "name": "intermediate event with mulitple incoming and outgoing edges",
+        "from": "assets/intermediate-event/intermediate-event-pre.svg",
+        "to": "assets/intermediate-event/intermediate-event-post.svg"
+      },
+      {
+        "name": "task with mulitple incoming and outgoing edges",
+        "from": "assets/task/task-pre.svg",
+        "to": "assets/task/task-post.svg"
+      }
+    ]
+  }
+]
