@@ -22,6 +22,16 @@
         "name": "task with mulitple incoming and outgoing edges",
         "from": "assets/task/task-pre.svg",
         "to": "assets/task/task-post.svg"
+      },
+      {
+        "name": "task with no incoming edges",
+        "from": "assets/task/task-no-in-pre.svg",
+        "to": "assets/task/task-no-in-post.svg"
+      },
+      {
+        "name": "task with no outgoing edges",
+        "from": "assets/task/task-no-out-pre.svg",
+        "to": "assets/task/task-no-out-post.svg"
       }
     ]
   }

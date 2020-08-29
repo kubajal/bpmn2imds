@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   sodipodi:docname="task-no-in-pre.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 52 37"
+   height="37mm"
+   width="52mm">
+  <defs
+     id="defs2">
+    <marker
+       id="sequenceflow-end-white-black-dg33m2gy3hokelma5edi62iht"
+       viewBox="0 0 20 20"
+       refX="11"
+       refY="10"
+       markerWidth="10"
+       markerHeight="10"
+       orient="auto">
+      <path
+         inkscape:connector-curvature="0"
+         d="M 1,5 11,10 1,15 Z"
+         style="fill:#000000;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-dasharray:10000, 1"
+         id="path10" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     inkscape:document-rotation="0"
+     fit-margin-bottom="0"
+     fit-margin-right="0"
+     fit-margin-left="0"
+     fit-margin-top="0"
+     inkscape:window-maximized="1"
+     inkscape:window-y="-8"
+     inkscape:window-x="1592"
+     inkscape:window-height="987"
+     inkscape:window-width="1680"
+     showgrid="true"
+     inkscape:current-layer="g179"
+     inkscape:document-units="mm"
+     inkscape:cy="50.213584"
+     inkscape:cx="221.55499"
+     inkscape:zoom="1.4"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-61.893606,-49.142114)"
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <g
+       transform="matrix(0.26458333,0,0,0.26458333,-129.26785,-44.12351)"
+       id="g179">
+      <g
+         transform="translate(41.428584,29.596449)"
+         class="djs-group"
+         id="g25">
+        <g
+           class="djs-element djs-connection"
+           data-element-id="SequenceFlow_0pxsqrt"
+           style="display:block"
+           id="g23">
+          <g
+             class="djs-visual"
+             id="g17">
+            <path
+               sodipodi:nodetypes="cc"
+               inkscape:connector-curvature="0"
+               d="m 830,390 h 21.28571"
+               style="fill:none;stroke:#000000;stroke-width:2px;stroke-linejoin:round;marker-end:url(#sequenceflow-end-white-black-dg33m2gy3hokelma5edi62iht)"
+               id="path15" />
+          </g>
+          <polyline
+             points="830,390 922,390 "
+             class="djs-hit djs-hit-stroke"
+             style="fill:none;stroke:#ffffff;stroke-width:15px;stroke-opacity:0"
+             id="polyline19" />
+          <rect
+             x="824"
+             y="384"
+             width="104"
+             height="12"
+             class="djs-outline"
+             style="fill:none"
+             id="rect21" />
+        </g>
+      </g>
+      <g
+         transform="translate(41.428584,20)"
+         class="djs-group"
+         id="g65">
+        <g
+           class="djs-element djs-shape"
+           data-element-id="Task_1ll4f4a"
+           style="display:block"
+           transform="translate(730,360)"
+           id="g63">
+          <g
+             class="djs-visual"
+             id="g57">
+            <rect
+               x="0"
+               y="0"
+               width="100"
+               height="80"
+               rx="10"
+               ry="10"
+               style="fill:#ffffff;fill-opacity:0.95;stroke:#000000;stroke-width:2px"
+               id="rect51" />
+            <text
+               lineHeight="1.2"
+               class="djs-label"
+               style="font-weight:normal;font-size:12px;font-family:Arial, sans-serif;fill:#000000"
+               id="text55"><tspan
+                 x="50"
+                 y="43.599998"
+                 id="tspan53" /></text>
+          </g>
+          <rect
+             class="djs-hit djs-hit-all"
+             x="0"
+             y="0"
+             width="100"
+             height="80"
+             style="fill:none;stroke:#ffffff;stroke-width:15px;stroke-opacity:0"
+             id="rect59" />
+          <rect
+             x="-6"
+             y="-6"
+             width="112"
+             height="92"
+             class="djs-outline"
+             style="fill:none"
+             id="rect61" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
